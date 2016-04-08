@@ -348,5 +348,239 @@ app.get('/deleteRestaurants/:id', function (req, res) {
   });
 });
 
+// ********************************** BestRestaurants **************************************
+// List all BestRestaurants
+
+app.get('/listBestrestaurants', function(req, res) {
+  var db = req.db;
+  var collection = db.get('bestrestaurants');
+
+  collection.find({},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Add BestRestaurants
+
+app.post('/addBestrestaurants', function (req, res) {
+  var db = req.db;
+  var collection = db.get('bestrestaurants');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: '' } : { msg: err }
+             );
+  });
+});
+
+// Show BestRestaurants
+
+app.get('/showBestrestaurants/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('bestrestaurants');
+
+  collection.find({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Delete BestRestaurants
+app.get('/deletebestrestaurants/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('bestrestaurants');
+
+  collection.remove({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+
+
+// ************************************ RECIPES ************************************
+
+// List all Recipes
+app.get('/listRecipes', function(req, res) {
+  var db = req.db;
+  var collection = db.get('recipes');
+
+  collection.find({},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Add Recipes
+app.post('/addRecipes', function (req, res) {
+  var db = req.db;
+  var collection = db.get('recipes');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: '' } : { msg: err }
+             );
+  });
+});
+
+// Update Recipes
+app.post('/updateRecipes', function (req, res) {
+  var db = req.db;
+  var collection = db.get('recipes');
+  var obj = {};
+  var _id = req.body.id;
+
+  delete req.body.id
+  collection.update(_id, req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: 'Update complete !' } : { msg: err }
+             );
+  });
+});
+
+// Show Recipes
+app.get('/showRecipes/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('recipes');
+
+  collection.find({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Delete Recipes
+app.get('/deleteRecipes/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('recipes');
+
+  collection.remove({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+app.get('/form_add_ingredients', function(req, res, next) {
+  res.render('form_add_ingredients');
+});
+
+
+// ************************************ PRODUCTS ************************************
+
+// List all products
+app.get('/listProducts', function(req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.find({},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Add Products
+app.post('/addProducts', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: '' } : { msg: err }
+             );
+  });
+});
+
+// Show products
+app.get('/showProducts/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.find({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+app.post('/showProducts', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var ingredients = req.body.ingredients;
+  var JSON_ingredients = [];
+
+  if (typeof ingredients === 'string' ) {
+    ingredients = ingredients.split();
+  }
+  for (var i = 0; i < ingredients.length; i++) {
+    var json_obj = {};
+
+    json_obj['name'] = ingredients[i];
+    JSON_ingredients.push(json_obj);
+  };
+
+  collection.find({"ingredients" : { $all: JSON_ingredients}},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+
+app.get('/showProductsByName/:name', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var name = req.params.name;
+  name = name.toLowerCase();
+  collection.find({"name" : name },{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Delete Recipes
+app.get('/deleteProducts/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.remove({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// ********************************** ALLERGENS **************************************
+// List all products
+app.get('/listAllergens', function(req, res) {
+  var db = req.db;
+  var collection = db.get('allergens');
+
+  collection.find({},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Add Products
+app.post('/addAllergens', function (req, res) {
+  var db = req.db;
+  var collection = db.get('allergens');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: '' } : { msg: err }
+             );
+  });
+});
+
+// Show products
+app.get('/showAllergens/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('allergens');
+
+  collection.find({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Delete Recipes
+app.get('/deleteAllegens/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('allergens');
+
+  collection.remove({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
 
 module.exports = app;
