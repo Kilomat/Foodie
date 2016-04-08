@@ -15,19 +15,22 @@ Password: LeGroupeFoodie123
 
 Create URL => /add{collection_name}
        	   => Avec {collection_name} le nom de la collection avec la première lettre en MAJ. Ex: addRestaurants
-	   => Requête POST <=
-	   => Format des données: JSON
+	         => Requête POST <=
+	         => Format des données: JSON
 
 
 Read URL => /show{collection_name}/:id
      	 => Avec {collection_name}, voir plus haut
-	 => Avec :id l'id du document
+    	 => Avec :id l'id du document
+       => Requête GET
 
 Delete URL  => /delete{collection_name}/:id
        	    => {collection_name} et :id, voir plus haut
+             => Requête GET
 
 
 List all collection URL => /list{collection_name}
+                         => Requête GET
 
 =================================================================================
 
