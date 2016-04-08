@@ -1,0 +1,36 @@
+************************************************************** DOCUMENTATION RAPIDE DE L'API ************************************************************************
+http://nourritureapi-v2.herokuapp.com/
+
+/!\ Allez d'abord faire un tour sur mongolab pour voir les collections qui vous intéressent /!\
+
+*******************************
+https://mlab.com/
+Username: Foodie
+Password: LeGroupeFoodie123
+*******************************
+
+================================================================================
+                            CRUD (Create, Read, Update, Delete)
+================================================================================
+
+Create URL => /add{collection_name}
+       	   => Avec {collection_name} le nom de la collection avec la première lettre en MAJ. Ex: addRestaurants
+	   => Requête POST <=
+	   => Format des données: JSON
+
+
+Read URL => /show{collection_name}/:id
+     	 => Avec {collection_name}, voir plus haut
+	 => Avec :id l'id du document
+
+Delete URL  => /delete{collection_name}/:id
+       	    => {collection_name} et :id, voir plus haut
+
+
+List all collection URL => /list{collection_name}
+
+=================================================================================
+
+Exemple de requête: http://nourritureapi-v2.herokuapp.com/showRestaurants/Bfjfiec89FEesjfi
+
+===========================
