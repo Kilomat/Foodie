@@ -9,15 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import foodie.project_training.com.foodie.momentum.controller.MomentumFragment;
-import foodie.project_training.com.foodie.momentum.model.Momentum;
+import foodie.project_training.com.foodie.Momentum.controller.MomentumFragment;
+import foodie.project_training.com.foodie.Momentum.model.Momentum;
 
 public class MainActivity extends AppCompatActivity {
 

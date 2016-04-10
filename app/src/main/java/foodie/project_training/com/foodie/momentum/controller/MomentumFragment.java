@@ -1,4 +1,4 @@
-package foodie.project_training.com.foodie.momentum.controller;
+package foodie.project_training.com.foodie.Momentum.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
 import foodie.project_training.com.foodie.adapter.MomentumAdapter;
-import foodie.project_training.com.foodie.momentum.model.Momentum;
+import foodie.project_training.com.foodie.Momentum.model.Momentum;
 
 /**
  * Created by beau- on 30/03/2016.

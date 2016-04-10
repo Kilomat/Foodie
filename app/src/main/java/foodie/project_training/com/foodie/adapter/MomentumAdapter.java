@@ -1,6 +1,5 @@
 package foodie.project_training.com.foodie.adapter;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
-import foodie.project_training.com.foodie.momentum.model.Momentum;
+import foodie.project_training.com.foodie.Momentum.model.Momentum;
 
 /**
  * Created by beau- on 02/04/2016.
@@ -45,7 +44,6 @@ public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.Moment
     public MomentumAdapter.MomentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.momentum_item_row, parent, false);
         MomentViewHolder  mvh = new MomentViewHolder(v);
-
         return mvh;
     }
 

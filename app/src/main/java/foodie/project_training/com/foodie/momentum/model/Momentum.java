@@ -1,6 +1,4 @@
-package foodie.project_training.com.foodie.momentum.model;
-
-import android.widget.ImageView;
+package foodie.project_training.com.foodie.Momentum.model;
 
 
 /**
