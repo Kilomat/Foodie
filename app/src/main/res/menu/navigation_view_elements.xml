@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_momentum"
+            android:icon="@drawable/navigation_momentum_icon"
+            android:title="Momentums" />
+        <item
+            android:id="@+id/nav_restaurant"
+            android:icon="@drawable/navigation_restaurant_icon"
+            android:title="Restaurants" />
+        <item
+            android:id="@+id/nav_dish"
+            android:icon="@drawable/navigation_dish_icon"
+            android:title="Dishes" />
+        <item
+            android:id="@+id/nav_coupons"
+            android:icon="@drawable/navigation_coupon_icon"
+            android:title="Coupons" />
+        <item
+            android:id="@+id/nav_discount"
+            android:icon="@drawable/navigation_discount_icon"
+            android:title="Discounts" />
+    </group>
+</menu>
