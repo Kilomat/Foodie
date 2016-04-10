@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import foodie.project_training.com.foodie.momentum.controller.MomentumFragment;
 import foodie.project_training.com.foodie.momentum.model.Momentum;
 
@@ -25,19 +25,19 @@ public class MainActivity extends AppCompatActivity {
     String  email = "tan.beauoudong@gmail.com";
     int     profile = R.drawable.header_profil;
 
-    @InjectView(R.id.tool_bar) Toolbar toolbar;
+    @Bind(R.id.tool_bar) Toolbar toolbar;
 
-    @InjectView(R.id.navigationView)
+    @Bind(R.id.navigationView)
     NavigationView  navigationView;
 
-    @InjectView(R.id.drawer_layout) DrawerLayout    drawerLayout;
+    @Bind(R.id.drawer_layout) DrawerLayout    drawerLayout;
     ActionBarDrawerToggle   actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
 
