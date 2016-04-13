@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/foodie_logo"/>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/input_layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mtf_image="@drawable/email_icon"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardColor="@android:color/white"
+        app:mtf_labelColor="@android:color/white"
+        app:mtf_openKeyboardOnFocus="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            android:singleLine="true"
+            android:ellipsize="start"
+            android:hint="Email"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/input_layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:mtf_image="@drawable/password_icon"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardColor="@android:color/white"
+        app:mtf_labelColor="@android:color/white"
+        app:mtf_openKeyboardOnFocus="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="Password"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/input_layout_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:mtf_image="@drawable/password_icon"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardColor="@android:color/white"
+        app:mtf_labelColor="@android:color/white"
+        app:mtf_openKeyboardOnFocus="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="Confirm password"/>
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <ImageButton
+        android:id="@+id/btn_authenticate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/btn_authenticate"
+        android:background="@android:color/transparent"/>
+</LinearLayout>

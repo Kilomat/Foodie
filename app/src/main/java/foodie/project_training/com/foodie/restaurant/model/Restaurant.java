@@ -1,6 +1,4 @@
-package foodie.project_training.com.foodie.restaurant.model;
-
-import com.google.gson.annotations.SerializedName;
+package foodie.project_training.com.foodie.Restaurant.model;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ import foodie.project_training.com.foodie.User.model.User;
  */
 public class Restaurant {
 
-    
     private String  id;
     private String  name;
     private User    manager;

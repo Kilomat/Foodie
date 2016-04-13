@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/navigation_account_icon"
+            android:title="My account" />
+        <item
             android:id="@+id/nav_momentum"
             android:icon="@drawable/navigation_momentum_icon"
             android:title="Momentums" />
@@ -21,5 +25,9 @@
             android:id="@+id/nav_discount"
             android:icon="@drawable/navigation_discount_icon"
             android:title="Discounts" />
+        <item
+            android:id="@+id/nav_disconnect"
+            android:icon="@drawable/navigation_disconnect_icon"
+            android:title="Disconnect" />
     </group>
 </menu>

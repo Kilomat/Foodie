@@ -17,6 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.Momentum.controller.MomentumFragment;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
+import foodie.project_training.com.foodie.User.controller.AccountFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
 
         switch (menuItem.getItemId()) {
+            case R.id.nav_account:
+                fragmentClass = AccountFragment.class;
+                break;
             case R.id.nav_momentum:
                 fragmentClass = MomentumFragment.class;
                 break;

@@ -14,7 +14,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
-import foodie.project_training.com.foodie.adapter.MomentumAdapter;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
 
 /**
