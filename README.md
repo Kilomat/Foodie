@@ -37,7 +37,7 @@ HMAC-SHA1( "HTTPVerb:URL:nonce", "API_KEY" )
 # Sommaire
 
 - [Fonctions utilisateur](#fonctions-utilisateur)
-    - [ ] [Connexion](#connexion)
+    - [X] [Connexion](#connexion)
     - [x] [Inscription](#inscription)
     - [ ] [Informations](#informations)
     - [ ] [Mise à jour des informations](#mise-à-jour-des-informations)
