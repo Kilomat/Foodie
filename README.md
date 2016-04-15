@@ -18,20 +18,6 @@ Toutes les requêtes à l'API nécessitant d'être authentifié devront comporte
 
 L'indentifiant unique de l'utilisateur (récupéré après une requête de login).
 
-### nonce
-
-Suite de 6 chiffres généré aléatoirement à chaque requête.
-Le même nonce doit être utilisé pour le paramètre ``sign``, il permet d'éviter les attaques par rejeu.
-
-### sign
-
-Signature prouvant l'authenticité d'une requête. Elle est composée du type de requête (GET, POST, PUT, DELETE), de l'url appelée (sans paramètres), du nonce (identique au précèdent) et de la clé secrète de 30 caractères (récupérée après une requête de login).
-
-Cette signature est sous la forme suivante : 
-
-```
-HMAC-SHA1( "HTTPVerb:URL:nonce", "API_KEY" )
-```
 
 
 # Sommaire
@@ -77,7 +63,7 @@ POST users/auth
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | {"uid":"5", "api_key":"qZmoyusC5eypJECWSrepQw6g"}
+200     | Ok                        | {"uid":"5"}
 400     | Erreur dans les paramètres| {"error":"Bad parameter"}
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 
