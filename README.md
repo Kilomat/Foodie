@@ -26,7 +26,7 @@ L'indentifiant unique de l'utilisateur (récupéré après une requête de login
     - [X] [Connexion](#connexion)
     - [x] [Inscription](#inscription)
     - [X] [Informations](#informations)
-    - [ ] [Mise à jour des informations](#mise-à-jour-des-informations)
+    - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
 
 
 - [Gestion des repas](#gestion-des-repas)
