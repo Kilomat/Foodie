@@ -1,7 +1,9 @@
 package foodie.project_training.com.foodie.User.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +28,9 @@ public class AccountFragment extends Fragment {
 
     @Bind(R.id.recyclerView)
     RecyclerView    recyclerView;
+
+    @Bind(R.id.edit_btn)
+    FloatingActionButton    editBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +58,13 @@ public class AccountFragment extends Fragment {
 
         IconTextAdapter adapter = new IconTextAdapter(imgList, titleList);
         recyclerView.setAdapter(adapter);
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), EditAccountActivity.class));
+            }
+        });
 
         return view;
     }

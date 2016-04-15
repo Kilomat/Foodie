@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_account"
-            android:icon="@drawable/navigation_account_icon"
-            android:title="My account" />
-        <item
-            android:id="@+id/nav_momentum"
-            android:icon="@drawable/navigation_momentum_icon"
-            android:title="Momentums" />
-        <item
-            android:id="@+id/nav_restaurant"
-            android:icon="@drawable/navigation_restaurant_icon"
-            android:title="Restaurants" />
-        <item
-            android:id="@+id/nav_dish"
-            android:icon="@drawable/navigation_dish_icon"
-            android:title="Dishes" />
-        <item
-            android:id="@+id/nav_coupons"
-            android:icon="@drawable/navigation_coupon_icon"
-            android:title="Coupons" />
-        <item
-            android:id="@+id/nav_discount"
-            android:icon="@drawable/navigation_discount_icon"
-            android:title="Discounts" />
-        <item
-            android:id="@+id/nav_disconnect"
-            android:icon="@drawable/navigation_disconnect_icon"
-            android:title="Disconnect" />
-    </group>
+
+    <item android:title="Myself">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_account"
+                    android:icon="@drawable/navigation_account_icon"
+                    android:title="My account" />
+                <item
+                    android:id="@+id/nav_momentum"
+                    android:icon="@drawable/navigation_momentum_icon"
+                    android:title="Momentums" />
+                <item
+                    android:id="@+id/nav_friend"
+                    android:icon="@drawable/navigation_friend_icon"
+                    android:title="Friends" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="What to do">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_restaurant"
+                    android:icon="@drawable/navigation_restaurant_icon"
+                    android:title="Restaurants" />
+                <item
+                    android:id="@+id/nav_dish"
+                    android:icon="@drawable/navigation_dish_icon"
+                    android:title="Dishes" />
+                <item
+                    android:id="@+id/nav_coupons"
+                    android:icon="@drawable/navigation_coupon_icon"
+                    android:title="Coupons" />
+                <item
+                    android:id="@+id/nav_discount"
+                    android:icon="@drawable/navigation_discount_icon"
+                    android:title="Discounts" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Parameters">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_disconnect"
+                    android:icon="@drawable/navigation_disconnect_icon"
+                    android:title="Disconnect" />
+            </group>
+        </menu>
+    </item>
 </menu>

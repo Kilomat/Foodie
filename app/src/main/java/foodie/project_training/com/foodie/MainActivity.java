@@ -1,17 +1,24 @@
 package foodie.project_training.com.foodie;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     int     profile = R.drawable.header_profil;
 
     @Bind(R.id.tool_bar) Toolbar toolbar;
+    private MenuItem  searchAction;
+    private EditText edtSearch;
+    private boolean isSearchOpened = false;
 
     @Bind(R.id.navigationView)
     NavigationView  navigationView;
@@ -63,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(navigationView);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        searchAction = menu.findItem(R.id.action_search);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,13 +91,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
 
         switch (menuItem.getItemId()) {
             case R.id.nav_account:
                 fragmentClass = AccountFragment.class;
                 break;
             case R.id.nav_momentum:
+                fragmentClass = MomentumFragment.class;
+                break;
+            case R.id.nav_coupons:
+                fragmentClass = MomentumFragment.class;
+                break;
+            case R.id.nav_disconnect:
                 fragmentClass = MomentumFragment.class;
                 break;
             default:
@@ -129,8 +151,76 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.action_search:
+                handleMenuSearch();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void handleMenuSearch(){
+        ActionBar action = getSupportActionBar(); //get the actionbar
+
+        if(isSearchOpened){ //test if the search is open
+
+            action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
+            action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+
+            //hides the keyboard
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(edtSearch.getWindowToken(), 0);
+
+            //add the search icon in the action bar
+            searchAction.setIcon(getResources().getDrawable(R.drawable.search_icon));
+
+            isSearchOpened = false;
+        } else { //open the search entry
+
+            action.setDisplayShowCustomEnabled(true); //enable it to display a
+            // custom view in the action bar.
+            action.setCustomView(R.layout.search_bar);//add the custom view
+            action.setDisplayShowTitleEnabled(false); //hide the title
+
+            edtSearch = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
+
+            //this is a listener to do a search when the user clicks on search button
+            edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        doSearch();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+
+            edtSearch.requestFocus();
+
+            //open the keyboard focused in the edtSearch
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(edtSearch, InputMethodManager.SHOW_IMPLICIT);
+
+
+            //add the close icon
+            searchAction.setIcon(getResources().getDrawable(R.drawable.cancel_icon));
+
+            isSearchOpened = true;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isSearchOpened) {
+            handleMenuSearch();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    private void doSearch() {
+
     }
 }
