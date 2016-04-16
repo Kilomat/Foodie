@@ -1,20 +1,11 @@
 package foodie.project_training.com.foodie.Authentication;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.github.florent37.materialtextfield.MaterialTextField;
 
@@ -34,6 +25,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     MaterialTextField inputPassword;
     @Bind(R.id.btn_authenticate)
     ImageButton btnAuthenticate;
+    @Bind(R.id.create_account)
+    TextView createAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +38,13 @@ public class AuthenticationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
             }
         });
     }

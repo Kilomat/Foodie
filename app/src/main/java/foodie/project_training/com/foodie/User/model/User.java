@@ -1,5 +1,7 @@
 package foodie.project_training.com.foodie.User.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import foodie.project_training.com.foodie.Coupon.model.Coupon;
@@ -11,33 +13,54 @@ import foodie.project_training.com.foodie.Momentum.model.Momentum;
  */
 public class User {
 
+    @SerializedName("_id")
     private String  id;
-    private String  username;
+
+    @SerializedName("email")
+    private String  email;
+
+    @SerializedName("password")
     private String  password;
+
+    @SerializedName("lastName")
     private String  lastName;
-    private String  fullName;
-    private int     sex;
+
+    @SerializedName("firstName")
+    private String  firstName;
+
+    @SerializedName("gender")
+    private int     gender;
+
     private int     userType;
     private List<Momentum>  myMomentumList;
     private List<Coupon>    myCouponList;
     private List<Discount>  myDiscountList;
 
     public User(String id,
-                String username,
+                String email,
+                String password) {
+
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String id,
+                String email,
                 String password,
                 String lastName,
-                String fullName,
-                int sex,
+                String firstName,
+                int gender,
                 int userType,
                 List<Momentum> myMomentumList,
                 List<Coupon> myCouponList,
                 List<Discount> myDiscountList) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.lastName = lastName;
-        this.fullName = fullName;
-        this.sex = sex;
+        this.firstName = firstName;
+        this.gender = gender;
         this.userType = userType;
         this.myMomentumList = myMomentumList;
         this.myCouponList = myCouponList;
@@ -52,13 +75,9 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getEmail() { return email; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setEmail(String email) { this.email = email; }
 
     public String getPassword() {
         return password;
@@ -76,20 +95,20 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public int getSex() {
-        return sex;
+    public int getGender() {
+        return gender;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public int getUserType() {
@@ -128,11 +147,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", sex=" + sex +
+                ", firstName='" + firstName + '\'' +
+                ", gender=" + gender +
                 ", userType=" + userType +
                 ", myMomentumList=" + myMomentumList +
                 ", myCouponList=" + myCouponList +
