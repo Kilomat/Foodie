@@ -12,7 +12,7 @@ Les retours sont toujours au format ``JSON``.
 
 ## Requêtes nécessitant une authentification
 
-Toutes les requêtes à l'API nécessitant d'être authentifié devront comporter les paramètres ``uid``, ``nonce`` et ``sign`` dans l'url.
+Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection
 
 ### uid
 
