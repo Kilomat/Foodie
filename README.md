@@ -2,7 +2,7 @@
 
 Ce document sert de réference pour le fonctionnement de l'API Foodie.
 
-Url de référence pour l'API : ``not_yet_defined``
+Url de référence pour l'API : `http://54.87.186.67:9000/``
 
 ## Fonctionnement
 
@@ -17,7 +17,6 @@ Toutes les requêtes à l'API nécessitant d'être authentifié devront comporte
 ### uid
 
 L'indentifiant unique de l'utilisateur (récupéré après une requête de login).
-
 
 
 # Sommaire
