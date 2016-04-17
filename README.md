@@ -2,7 +2,7 @@
 
 Ce document sert de réference pour le fonctionnement de l'API Foodie.
 
-Url de référence pour l'API : `http://54.87.186.67:9000/``
+Url de référence pour l'API : `http://54.87.186.67:9000/`
 
 ## Fonctionnement
 
