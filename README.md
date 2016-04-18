@@ -163,14 +163,12 @@ POST meal/
     price:          "Prix",
     start_date:     "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
     duration:       "Durée du repas (en minutes)",
-    latitude:       "Lattitude",
-    longitude:      "Longitude",
+    city:           "City",
     badge_smoke:    "Fumeur (0-1)",
     badge_animal:   "Animaux sur place (0-1)",
     badge_musique:  "Musique  (0-1)",
     badge_halal:    "Nourriture Halal (0-1)",
     badge_casher:   "Nourriture Casher (0-1)",
-    auto_approval:  "L'hote doit confirmer la réservation (0-1)"
 }
 ```
 
@@ -216,6 +214,7 @@ Valeur  | Description               | Retour Json
 ```
 data [
     {
+        restaurant_id   "Id du restaurant",
         title:          "Nom du repas",
         description:    "Description du repas",
         places:         "Nombre de places",
@@ -223,17 +222,15 @@ data [
         price:          "Prix",
         start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
         duration:       "Durée du repas (en minutes)",
-        latitude:       "Lattitude",
-        longitude:      "Longitude",
         badge_smoke:    "Fumeur (0-1)",
         badge_animal:   "Animaux sur place (0-1)",
         badge_musique:  "Musique  (0-1)",
         badge_halal:    "Nourriture Halal (0-1)",
         badge_casher:   "Nourriture Casher (0-1)",
-        auto_approval:  "L'hote doit confirmer la réservation (0-1)"
         status:         "Status du repas"
     },
     {
+        restaurant_id   "Id du restaurant",
         title:          "Nom du repas",
         description:    "Description du repas",
         places:         "Nombre de places",
@@ -241,14 +238,11 @@ data [
         price:          "Prix",
         start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
         duration:       "Durée du repas (en minutes)",
-        latitude:       "Lattitude",
-        longitude:      "Longitude",
         badge_smoke:    "Fumeur (0-1)",
         badge_animal:   "Animaux sur place (0-1)",
         badge_musique:  "Musique  (0-1)",
         badge_halal:    "Nourriture Halal (0-1)",
         badge_casher:   "Nourriture Casher (0-1)",
-        auto_approval:  "L'hote doit confirmer la réservation (0-1)"
         status:         "Status du repas"
     }
     ...
@@ -272,6 +266,7 @@ Valeur  | Description               | Retour Json
 
 ```
 data {
+    restaurant_id   "Id du restaurant",
     title:          "Nom du repas",
     description:    "Description du repas",
     places:         "Nombre de places",
@@ -279,14 +274,11 @@ data {
     price:          "Prix",
     start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
     duration:       "Durée du repas (en minutes)",
-    latitude:       "Lattitude",
-    longitude:      "Longitude",
     badge_smoke:    "Fumeur (0-1)",
     badge_animal:   "Animaux sur place (0-1)",
     badge_musique:  "Musique  (0-1)",
     badge_halal:    "Nourriture Halal (0-1)",
     badge_casher:   "Nourriture Casher (0-1)",
-    auto_approval:  "L'hote doit confirmer la réservation (0-1)"
     status:         "Status du repas"
 }
 ```
@@ -338,9 +330,6 @@ Valeur  | Description               | Retour Json
 404     | ID repas inconnue         | {"error": "Unknown ID"}
 404     | Date du repas dépassée    | {"error": "End"}
 406     | Déjà inscrit au repas     | {"error": "Already registered"}
-
-
-
 
 
 ## Annuler un repas
