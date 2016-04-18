@@ -150,3 +150,212 @@ Valeur  | Description               | Retour Json
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
 
+## Ajouter un repas
+
+***Nécessite une authentification***
+
+```
+POST meal/
+{
+    title:          "Nom du repas",
+    description:    "Description du repas",
+    places:         "Nombre de places",
+    price:          "Prix",
+    start_date:     "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
+    duration:       "Durée du repas (en minutes)",
+    latitude:       "Lattitude",
+    longitude:      "Longitude",
+    badge_smoke:    "Fumeur (0-1)",
+    badge_animal:   "Animaux sur place (0-1)",
+    badge_musique:  "Musique  (0-1)",
+    badge_halal:    "Nourriture Halal (0-1)",
+    badge_casher:   "Nourriture Casher (0-1)",
+    auto_approval:  "L'hote doit confirmer la réservation (0-1)"
+}
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "OK"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+406     | Vérification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+## Modifier un repas
+
+## Recherche de repas
+
+Un appel GET à meal/ sans parmètres renverra tous les repas avec une limite de 20.
+
+Il n'est pas indispensable de spécifier tout les paramètres pour la recherche.
+
+```
+GET meal/?w=__WORD__&c=__CITY__&pm=__MUSIC__&pa=__ANIMAL__&ph=__HALAL__&pc=__CASHER__&ps=__SMOKE__&l=__LIMIT__
+{
+    __WORD__:           "Mot clé (cherche dans le titre du repas et dans la description)",
+    __CITY__:           "Latitude spécifiée par l'utilisateur",
+    __MUSIC__:          "Préference musicale (0-1)",
+    __ANIMAL__:         "Animaux sur place (0-1)"
+    __HALAL__:          "Nourriture Halal (0-1)",
+    __CASHER__:         "Nourriture Casher (0-1)",
+    __SMOKE__:          "Fumeur (0-1)",
+    __LIMIT__:          "Limite de résultat (défault 20)"
+}
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | Voir ci dessous
+404     | No result                 | {"error":"No results found matching your criteria"}
+
+- Retour en cas de succès
+
+```
+data [
+    {
+        title:          "Nom du repas",
+        description:    "Description du repas",
+        places:         "Nombre de places",
+        places_free:    "Nombre de places restantes"
+        price:          "Prix",
+        start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
+        duration:       "Durée du repas (en minutes)",
+        latitude:       "Lattitude",
+        longitude:      "Longitude",
+        badge_smoke:    "Fumeur (0-1)",
+        badge_animal:   "Animaux sur place (0-1)",
+        badge_musique:  "Musique  (0-1)",
+        badge_halal:    "Nourriture Halal (0-1)",
+        badge_casher:   "Nourriture Casher (0-1)",
+        auto_approval:  "L'hote doit confirmer la réservation (0-1)"
+        status:         "Status du repas"
+    },
+    {
+        title:          "Nom du repas",
+        description:    "Description du repas",
+        places:         "Nombre de places",
+        places_free:    "Nombre de places restantes"
+        price:          "Prix",
+        start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
+        duration:       "Durée du repas (en minutes)",
+        latitude:       "Lattitude",
+        longitude:      "Longitude",
+        badge_smoke:    "Fumeur (0-1)",
+        badge_animal:   "Animaux sur place (0-1)",
+        badge_musique:  "Musique  (0-1)",
+        badge_halal:    "Nourriture Halal (0-1)",
+        badge_casher:   "Nourriture Casher (0-1)",
+        auto_approval:  "L'hote doit confirmer la réservation (0-1)"
+        status:         "Status du repas"
+    }
+    ...
+]
+```
+
+## Informations repas
+
+```
+GET meal/__MEAL_ID__/
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | Voir ci-dessous
+404     | ID inconnue               | {"error":"Unknown ID"}
+
+- Retour en cas de succès
+
+```
+data {
+    title:          "Nom du repas",
+    description:    "Description du repas",
+    places:         "Nombre de places",
+    places_free:    "Nombre de places restantes"
+    price:          "Prix",
+    start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
+    duration:       "Durée du repas (en minutes)",
+    latitude:       "Lattitude",
+    longitude:      "Longitude",
+    badge_smoke:    "Fumeur (0-1)",
+    badge_animal:   "Animaux sur place (0-1)",
+    badge_musique:  "Musique  (0-1)",
+    badge_halal:    "Nourriture Halal (0-1)",
+    badge_casher:   "Nourriture Casher (0-1)",
+    auto_approval:  "L'hote doit confirmer la réservation (0-1)"
+    status:         "Status du repas"
+}
+```
+
+## Liste des participants à un repas
+
+```
+GET meal/participate/__MEAL_ID__
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | Voir ci-dessous
+404     | ID repas inconnue         | {"error":"Unknown ID"}
+
+- Retour en cas de succès
+
+```
+data [
+    "USER_ID1": "Status participation",
+    "USER_ID2": "Status participation",
+    "USER_ID3": "Status participation",
+    ...
+]
+```
+
+## Participer à un repas
+
+***Nécessite une authentification***
+
+TODO
+
+```
+POST meal/participate/__MEAL_ID__
+{
+
+}
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "OK"
+401     | Echec d'authentification  | {"error": "Bad credentials"}
+403     | Plus de places disponible | {"error": "Full"}
+404     | ID repas inconnue         | {"error": "Unknown ID"}
+404     | Date du repas dépassée    | {"error": "End"}
+406     | Déjà inscrit au repas     | {"error": "Already registered"}
+
+
+
+
+
+## Annuler un repas
+
+***Nécessite une authentification***
+
+```
+DELETE meal/__MEAL_ID__
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "OK"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+404     | ID repas inconnue         | {"error":"Unknown ID"}
