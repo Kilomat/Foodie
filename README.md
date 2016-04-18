@@ -12,11 +12,7 @@ Les retours sont toujours au format ``JSON``.
 
 ## Requêtes nécessitant une authentification
 
-Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection
-
-### uid
-
-L'indentifiant unique de l'utilisateur (récupéré après une requête de login).
+Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
 
 
 # Sommaire
