@@ -31,9 +31,6 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [ ] [Informations repas](#informations-repas)
     - [ ] [Liste des participants à un repas](#liste-des-participants-à-un-repas)
     - [ ] [Participer à un repas](#participer-à-un-repas)
-    - [ ] [Annuler participation à un repas](#annuler-participation-à-un-repas)
-    - [ ] [Approuver participation à un repas](#approuver-participation-à-un-repas)
-    - [ ] [Révoquer participation à un repas](#révoquer-participation-à-un-repas)
     - [ ] [Annuler un repas](#annuler-un-repas)
     
     
@@ -41,6 +38,9 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [ ] [Poster une évaluation](#poster-une-evaluation)
     - [ ] [Recherche évaluations repas](#recherche-evaluations-repas)
     - [ ] [Recherche évaluations membre](#recherche-evaluations-membre)
+
+- [Moment](#evaluations)
+    - [ ] [Poster un moment](#poster-une-evaluation)
 
 
 # Fonctions utilisateur
@@ -344,3 +344,26 @@ Valeur  | Description               | Retour Json
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 404     | ID repas inconnue         | {"error":"Unknown ID"}
+
+
+# Moment
+
+## Poster un moment
+
+***Nécessite une authentification***
+
+```
+POST moment
+{
+    lattitude:      "lattitude du smartphone",
+    longitude:      "longitude du smartphone",
+    description:    "description"
+}
+```
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | OK
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+401     | Echec d'authentification  | {"error":"Bad credentials"}
