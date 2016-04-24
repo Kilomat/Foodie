@@ -65,7 +65,7 @@ Valeur  | Description               | Retour Json
 ## Inscription
 
 ```
-POST users/
+POST users
 {
     email:      "Adresse email",
     password:   "Mot de passe"
