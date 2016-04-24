@@ -28,13 +28,37 @@ public class User {
     @SerializedName("firstName")
     private String  firstName;
 
+    @SerializedName("birthday")
+    private String  birthday;
+
+    @SerializedName("address")
+    private String  address;
+
+    @SerializedName("city")
+    private String  city;
+
+    @SerializedName("zipcode")
+    private double  zipcode;
+
+    @SerializedName("phone")
+    private String  phone;
+
     @SerializedName("gender")
     private int     gender;
+
+
 
     private int     userType;
     private List<Momentum>  myMomentumList;
     private List<Coupon>    myCouponList;
     private List<Discount>  myDiscountList;
+
+
+    public User(String email,
+                String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public User(String id,
                 String email,
@@ -50,6 +74,11 @@ public class User {
                 String password,
                 String lastName,
                 String firstName,
+                String birthday,
+                String address,
+                String city,
+                double zipcode,
+                String phone,
                 int gender,
                 int userType,
                 List<Momentum> myMomentumList,
@@ -60,6 +89,11 @@ public class User {
         this.password = password;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.birthday = birthday;
+        this.address = address;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.phone = phone;
         this.gender = gender;
         this.userType = userType;
         this.myMomentumList = myMomentumList;
@@ -101,6 +135,46 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public double getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(double zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getGender() {

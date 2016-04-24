@@ -1,0 +1,31 @@
+{
+"Users":
+	[
+		{
+			"_id": "123456",
+			"firstName": "beaubeau",
+			"lastName": "tan",
+			"email": "tan.beauoudong@gmail.com",
+			"password": "lollol",
+			"birthday": "1994-04-07",
+			"address": "93 c'est le barca",
+			"city": "Paris",
+			"zipcode": "93",
+			"gender": "0",
+			"phone": "182-0161-8329"
+		},
+		{
+			"_id": "78",
+			"firstName": "test",
+			"lastName": "testtest",
+			"email": "test.beautest@gmail.com",
+			"password": "testtest",
+			"birthday": "1994-04-07",
+			"address": "93 c'est le barca",
+			"city": "Paris",
+			"zipcode": "93",
+			"gender": "1",
+			"phone": "182-0161-8329"
+		}
+	]
+}

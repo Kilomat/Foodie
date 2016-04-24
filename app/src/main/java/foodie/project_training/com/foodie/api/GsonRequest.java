@@ -6,54 +6,60 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
  * Created by beau- on 16/04/2016.
  */
-public class GsonRequest<T> extends Request<T> {
-    private final Gson gson = new Gson();
-    private final Class<T> clazz;
-    private final Map<String, String> headers ;
+public class GsonRequest<T> extends JsonRequest<T> {
+    private Gson gson;
+    private final Type type;
+    private final Class<T> clazz = null;
+    private final Map<String, String> headers = null;
     private final Response.Listener<T> listener;
 
-    /**
-     * Make a GET request and return a parsed object from JSON.
-     *
-     * @param url URL of the request to make
-     * @param clazz Relevant class object, for Gson's reflection
-     * @param headers Map of request headers
-     */
-    public GsonRequest(String url, Class<T> clazz, Map<String, String> headers,
+
+/*    public GsonRequest(String url, Class<T> clazz, Map<String, String> headers,
                        Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.clazz = clazz;
         this.headers = headers;
         this.listener = listener;
-    }
-
+    }*/
+/*
     public GsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
                        Response.Listener listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.clazz = clazz;
-        this.listener = listener;
         this.headers = headers;
+        this.listener = listener;
+    }*/
+
+    public GsonRequest(int method, String url, String body, Type type, Gson gson,
+                       Response.Listener listener, Response.ErrorListener errorListener) {
+        super(method, url, body, listener, errorListener);
+        this.gson = gson;
+        this.type = type;
+        this.listener = listener;
     }
 
+    /*
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        return headers != null ? headers : super.getHeaders();
-    }
-
-    @Override
-    protected Map<String, String> getParams() throws AuthFailureError {
         return headers;
     }
 
+    @Override
+    public String getBodyContentType(){
+        return "application/json";
+    }
+*/
     @Override
     protected void deliverResponse(T response) {
         listener.onResponse(response);
@@ -65,8 +71,9 @@ public class GsonRequest<T> extends Request<T> {
             String json = new String(
                     response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-            return Response.success(
-                    gson.fromJson(json, clazz),
+            System.out.println("response : " + json);
+            return (Response<T>) Response.success(
+                    gson.fromJson(json, type),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
