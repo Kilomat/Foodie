@@ -180,9 +180,10 @@ Un appel GET à meal/ sans parmètres renverra tous les repas avec une limite de
 Il n'est pas indispensable de spécifier tout les paramètres pour la recherche.
 
 ```
-GET meal/?w=__WORD__&c=__CITY__&&l=__LIMIT__
+GET meal/?w=__WORD__&c=__CITY__&pm=__PRICE_MAX__=&l=__LIMIT__
 {
     __WORD__:           "Mot clé (cherche dans le titre du repas et dans la description)",
+    __PRICE_MAX__:      "Prix maximum"
     __CITY__:           "Latitude spécifiée par l'utilisateur",
     __LIMIT__:          "Limite de résultat (défault 20)"
 }
@@ -208,11 +209,6 @@ data [
         price:          "Prix",
         start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
         duration:       "Durée du repas (en minutes)",
-        badge_smoke:    "Fumeur (0-1)",
-        badge_animal:   "Animaux sur place (0-1)",
-        badge_musique:  "Musique  (0-1)",
-        badge_halal:    "Nourriture Halal (0-1)",
-        badge_casher:   "Nourriture Casher (0-1)",
         status:         "Status du repas"
     },
     {
@@ -224,11 +220,6 @@ data [
         price:          "Prix",
         start:          "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
         duration:       "Durée du repas (en minutes)",
-        badge_smoke:    "Fumeur (0-1)",
-        badge_animal:   "Animaux sur place (0-1)",
-        badge_musique:  "Musique  (0-1)",
-        badge_halal:    "Nourriture Halal (0-1)",
-        badge_casher:   "Nourriture Casher (0-1)",
         status:         "Status du repas"
     }
     ...
