@@ -160,11 +160,6 @@ POST meal/
     start_date:     "Jour et heure du repas (YYYY-MM-DD HH:MM:SS)",
     duration:       "Durée du repas (en minutes)",
     city:           "City",
-    badge_smoke:    "Fumeur (0-1)",
-    badge_animal:   "Animaux sur place (0-1)",
-    badge_musique:  "Musique  (0-1)",
-    badge_halal:    "Nourriture Halal (0-1)",
-    badge_casher:   "Nourriture Casher (0-1)",
 }
 ```
 
@@ -185,15 +180,10 @@ Un appel GET à meal/ sans parmètres renverra tous les repas avec une limite de
 Il n'est pas indispensable de spécifier tout les paramètres pour la recherche.
 
 ```
-GET meal/?w=__WORD__&c=__CITY__&pm=__MUSIC__&pa=__ANIMAL__&ph=__HALAL__&pc=__CASHER__&ps=__SMOKE__&l=__LIMIT__
+GET meal/?w=__WORD__&c=__CITY__&&l=__LIMIT__
 {
     __WORD__:           "Mot clé (cherche dans le titre du repas et dans la description)",
     __CITY__:           "Latitude spécifiée par l'utilisateur",
-    __MUSIC__:          "Préference musicale (0-1)",
-    __ANIMAL__:         "Animaux sur place (0-1)"
-    __HALAL__:          "Nourriture Halal (0-1)",
-    __CASHER__:         "Nourriture Casher (0-1)",
-    __SMOKE__:          "Fumeur (0-1)",
     __LIMIT__:          "Limite de résultat (défault 20)"
 }
 ```
