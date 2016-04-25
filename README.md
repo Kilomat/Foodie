@@ -276,12 +276,12 @@ Valeur  | Description               | Retour Json
 - Retour en cas de succès
 
 ```
-data [
+data {
     "USER_ID1": "Status participation",
     "USER_ID2": "Status participation",
     "USER_ID3": "Status participation",
     ...
-]
+}
 ```
 
 ## Participer à un repas
