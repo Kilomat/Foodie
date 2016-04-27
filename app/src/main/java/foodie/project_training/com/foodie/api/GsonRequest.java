@@ -8,7 +8,11 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -18,11 +22,11 @@ import java.util.Map;
  * Created by beau- on 16/04/2016.
  */
 public class GsonRequest<T> extends JsonRequest<T> {
-    private Gson gson;
+    private final Gson gson;
     private final Type type;
+    private final Response.Listener<T> listener;
     private final Class<T> clazz = null;
     private final Map<String, String> headers = null;
-    private final Response.Listener<T> listener;
 
 
 /*    public GsonRequest(String url, Class<T> clazz, Map<String, String> headers,
@@ -73,12 +77,15 @@ public class GsonRequest<T> extends JsonRequest<T> {
                     HttpHeaderParser.parseCharset(response.headers));
             System.out.println("response : " + json);
             return (Response<T>) Response.success(
-                    gson.fromJson(json, type),
+                  gson.fromJson(json, type),
+//                    new JSONObject(json),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));
-        }
+        } /*catch (JSONException e) {
+            return Response.error(new ParseError(e));
+        }*/
     }
 }

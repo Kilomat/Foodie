@@ -1,34 +1,27 @@
 package foodie.project_training.com.foodie.Authentication;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Debug;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -36,8 +29,8 @@ import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
 import foodie.project_training.com.foodie.User.model.User;
 import foodie.project_training.com.foodie.User.model.UserSerializer;
+import foodie.project_training.com.foodie.api.FoodieLink;
 import foodie.project_training.com.foodie.api.FoodiePath;
-import foodie.project_training.com.foodie.api.FoodieRequest;
 import foodie.project_training.com.foodie.api.GsonRequest;
 
 /**
@@ -62,50 +55,20 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkPassword() == true) {
 
-                    /*if (checkUser()) {
-                        FoodieRequest request = new FoodieRequest(getApplicationContext());
-                        request.addUser("Users.json", email.getText().toString(), password.getText().toString());
-                    }*/
+                    final ProgressDialog dialog = new ProgressDialog(RegistrationActivity.this, R.style.AppTheme_NoActionBar);
+                    dialog.setIndeterminate(true);
+                    dialog.setMessage("Creating a new user ...");
+                    dialog.show();
 
-                    User user = new User(email.getText().toString(), password.getText().toString());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            FoodieLink link = new FoodieLink(getApplicationContext(), dialog);
+                            link.createUser(email.getText().toString(), password.getText().toString());
+                        }
+                    }, 3000);
 
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-                    gsonBuilder.registerTypeAdapter(User.class, new UserSerializer());
-                    gsonBuilder.setPrettyPrinting();
-
-                    Gson gson = gsonBuilder.create();
-                    String userJson = gson.toJson(user);
-/*
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Content-Type", "application/json");
-                    params.put("email", user.getEmail());
-                    params.put("password", user.getPassword());
-                    System.out.println("gson" + gson.toJson(params));*/
-
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("email", user.getEmail());
-                    jsonObject.addProperty("password", user.getPassword());
-
-                    System.out.println("jsonObject " + jsonObject.toString());
-                    GsonRequest<User>  userRequest = new GsonRequest<>(Request.Method.POST,
-                            FoodiePath._USERS_,
-                            jsonObject.toString(),
-                            new TypeToken<User>() {}.getType(),
-                            gson,
-                            new Response.Listener<User>() {
-                                @Override
-                                public void onResponse(User response) {
-                                    System.out.println("responses : " + response.toString());
-//                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    System.out.println("ERROR : "  +  error.toString());
-                                }
-                            });
-/*
+                    /*
                     JsonObjectRequest userRequest = null;
 
                     userRequest = new JsonObjectRequest(Request.Method.POST,
@@ -114,14 +77,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
                              @Override
                              public void onResponse(JSONObject response) {
-                                 System.out.println("ResponseJSON ");
+                                 System.out.println("ResponseJSON " + response);
                              }
                          },
                          new Response.ErrorListener() {
                              @Override
                              public void onErrorResponse(VolleyError error) {
                                  System.out.println("error " + error.toString());
-                                 /*String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                 String statusCode = String.valueOf(error.networkResponse.statusCode);
                                  System.out.println("statusCode : " + statusCode);
                                  if ( error.networkResponse.data != null) {
                                      try {
@@ -143,8 +106,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     };
 
-*/
 
+*/
 /*                    StringRequest userRequest = new StringRequest(Request.Method.POST, FoodiePath._USERS_,
                             new Response.Listener<String>() {
                                 @Override
@@ -180,28 +143,11 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     };
                     */
-                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                    requestQueue.add(userRequest);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please enter a login and password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-
-    private boolean checkUser() {
-        FoodieRequest request = new FoodieRequest(this);
-        List<User> users = request.getUsers("Users.json");
-        if (users != null || users.size() > 0) {
-            for (User user : users) {
-                System.out.println("user" + user.toString());
-                if (user.getEmail().equals(email.getText().toString())) {
-                    Toast.makeText(this, "This email is already registered", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
     private boolean checkPassword() {
