@@ -13,7 +13,7 @@ import foodie.project_training.com.foodie.Momentum.model.Momentum;
  */
 public class User {
 
-    @SerializedName("_id")
+    @SerializedName("id")
     private String  id;
 
     @SerializedName("email")
@@ -31,7 +31,7 @@ public class User {
     @SerializedName("birthday")
     private String  birthday;
 
-    @SerializedName("address")
+    @SerializedName("adress")
     private String  address;
 
     @SerializedName("city")
@@ -40,11 +40,17 @@ public class User {
     @SerializedName("zipcode")
     private double  zipcode;
 
+    @SerializedName("bio")
+    private String  bio;
+
+    @SerializedName("gender")
+    private String  gender;
+
     @SerializedName("phone")
     private String  phone;
 
-    @SerializedName("gender")
-    private int     gender;
+    @SerializedName("notification")
+    private String  notification;
 
 
 
@@ -53,6 +59,7 @@ public class User {
     private List<Coupon>    myCouponList;
     private List<Discount>  myDiscountList;
 
+    public User() {}
 
     public User(String email,
                 String password) {
@@ -79,7 +86,7 @@ public class User {
                 String city,
                 double zipcode,
                 String phone,
-                int gender,
+                String gender,
                 int userType,
                 List<Momentum> myMomentumList,
                 List<Coupon> myCouponList,
@@ -169,6 +176,18 @@ public class User {
         this.zipcode = zipcode;
     }
 
+    public String getBio() { return bio; }
+
+    public void setBio(String bio) { this.bio = bio; }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -177,12 +196,12 @@ public class User {
         this.phone = phone;
     }
 
-    public int getGender() {
-        return gender;
+    public String getNotification() {
+        return notification;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public void setNotification(String notification) {
+        this.notification = notification;
     }
 
     public int getUserType() {
@@ -225,7 +244,14 @@ public class User {
                 ", password='" + password + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", gender=" + gender +
+                ", birthday='" + birthday + '\'' +
+                ", adress='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zipcode=" + zipcode +
+                ", bio='" + bio + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", notification='" + notification + '\'' +
                 ", userType=" + userType +
                 ", myMomentumList=" + myMomentumList +
                 ", myCouponList=" + myCouponList +

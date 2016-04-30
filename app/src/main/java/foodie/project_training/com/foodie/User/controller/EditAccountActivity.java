@@ -1,5 +1,6 @@
 package foodie.project_training.com.foodie.User.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.User.model.User;
 
 /**
  * Created by beau- on 13/04/2016.
@@ -23,6 +25,10 @@ public class EditAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_account_activity);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+
+        User user = (User)intent.getExtras().getSerializable("user");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

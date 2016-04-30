@@ -24,6 +24,7 @@ import java.util.Map;
 public class GsonRequest<T> extends JsonRequest<T> {
     private final Gson gson;
     private final Type type;
+    private final String body;
     private final Response.Listener<T> listener;
     private final Class<T> clazz = null;
     private final Map<String, String> headers = null;
@@ -50,6 +51,7 @@ public class GsonRequest<T> extends JsonRequest<T> {
         super(method, url, body, listener, errorListener);
         this.gson = gson;
         this.type = type;
+        this.body = body;
         this.listener = listener;
     }
 
@@ -64,6 +66,12 @@ public class GsonRequest<T> extends JsonRequest<T> {
         return "application/json";
     }
 */
+
+    @Override
+    public byte[] getBody() {
+        return body.getBytes();
+    }
+
     @Override
     protected void deliverResponse(T response) {
         listener.onResponse(response);
