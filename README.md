@@ -111,7 +111,10 @@ data {
 
 ## Mise à jour des informations
 
+
+
 ***Nécessite une authentification***
+***Le JWT renvoyé remplace l'ancien***
 
 
 ```
