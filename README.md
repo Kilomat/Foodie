@@ -23,6 +23,9 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Informations](#informations)
     - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
 
+- [Moment](#evaluations)
+    - [X] [Poster un moment](#poster-un-moment)
+    - [X] [Récupérer les moments d'un utilisateur](#récupérér-les-moments)
 
 - [Gestion des repas](#gestion-des-repas)
     - [ ] [Ajouter un repas](#ajouter-un-repas)
@@ -31,16 +34,9 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [ ] [Informations repas](#informations-repas)
     - [ ] [Liste des participants à un repas](#liste-des-participants-à-un-repas)
     - [ ] [Participer à un repas](#participer-à-un-repas)
-    - [ ] [Annuler un repas](#annuler-un-repas)
-    
-    
-- [Evaluations](#evaluations)
-    - [ ] [Poster une évaluation](#poster-une-evaluation)
-    - [ ] [Recherche évaluations repas](#recherche-evaluations-repas)
-    - [ ] [Recherche évaluations membre](#recherche-evaluations-membre)
+    - [ ] [Annuler participtions repas](#annuler-un-repas)
 
-- [Moment](#evaluations)
-    - [ ] [Poster un moment](#poster-une-evaluation)
+
 
 
 # Fonctions utilisateur
@@ -348,3 +344,32 @@ Valeur  | Description               | Retour Json
 200     | Ok                        | OK
 400     | Erreur dans les paramètres| {"error":"Bad parameter"}
 401     | Echec d'authentification  | {"error":"Bad credentials"}
+
+## Récupérer moment d'un utilisateur
+
+***Nécessite une authentification***
+
+
+```
+GET moment/__USER_ID__/__JWT__
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "OK"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+- Retour en cas de succès
+
+```
+data {
+    "USER_ID1": "Status participation",
+    "USER_ID2": "Status participation",
+    "USER_ID3": "Status participation",
+    ...
+}
+```
