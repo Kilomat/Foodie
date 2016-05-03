@@ -1,84 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
-    android:background="@color/colorPrimary">
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/foodie_logo_white"/>
+        android:layout_weight="0.05"></RelativeLayout>
 
-        <com.github.florent37.materialtextfield.MaterialTextField
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:mtf_image="@drawable/email_icon"
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@android:color/white"
-            app:mtf_labelColor="@android:color/white"
-            app:mtf_openKeyboardOnFocus="false">
+            android:layout_height="fill_parent"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/foodie_logo"/>
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="start"
+                android:drawablePadding="15dip"
+                android:drawableLeft="@drawable/email_icon"
+                android:background="@drawable/background_edittext"
                 android:hint="Email"/>
-        </com.github.florent37.materialtextfield.MaterialTextField>
-
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:mtf_image="@drawable/password_icon"
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@android:color/white"
-            app:mtf_labelColor="@android:color/white"
-            app:mtf_openKeyboardOnFocus="false">
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:drawablePadding="15dip"
+                android:drawableLeft="@drawable/password_icon"
+                android:background="@drawable/background_edittext"
                 android:hint="Password"/>
-        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <ImageButton
-            android:id="@+id/btn_authenticate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:adjustViewBounds="true"
-            android:scaleType="center"
-            android:src="@drawable/selector_btn_authenticate"
-            android:background="@android:color/transparent"/>
-        <TextView
-            android:id="@+id/create_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="No account yet? Create one"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
-</RelativeLayout>
+            <ImageButton
+                android:id="@+id/btn_authenticate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/selector_btn_authenticate"/>
+
+            <TextView
+                android:id="@+id/create_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="No account yet? Create one"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="0.05"></RelativeLayout>
+
+</LinearLayout>

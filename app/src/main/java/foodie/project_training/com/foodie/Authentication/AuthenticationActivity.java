@@ -2,15 +2,18 @@ package foodie.project_training.com.foodie.Authentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,14 +43,10 @@ import foodie.project_training.com.foodie.api.GsonRequest;
  */
 public class AuthenticationActivity extends AppCompatActivity {
 
-    @Bind(R.id.email)
-    EditText email;
-    @Bind(R.id.password)
-    EditText password;
-    @Bind(R.id.btn_authenticate)
-    ImageButton btnAuthenticate;
-    @Bind(R.id.create_account)
-    TextView createAccount;
+    @Bind(R.id.email) EditText email;
+    @Bind(R.id.password) EditText password;
+    @Bind(R.id.btn_authenticate) ImageButton btnAuthenticate;
+    @Bind(R.id.create_account) TextView createAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +54,21 @@ public class AuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.authentication_activity);
         ButterKnife.bind(this);
 
+        password.setTypeface(Typeface.DEFAULT_BOLD);
+        password.setTransformationMethod(new PasswordTransformationMethod());
         btnAuthenticate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkInput()) {
-                    final ProgressDialog dialog = new ProgressDialog(AuthenticationActivity.this, R.style.AppTheme_NoActionBar);
+                    final MaterialDialog dialog = new MaterialDialog.Builder(AuthenticationActivity.this)
+                            .title("Authenticating ...")
+                            .progress(true, 0)
+                            .progressIndeterminateStyle(true)
+                            .show();
+/*                    final ProgressDialog dialog = new ProgressDialog(AuthenticationActivity.this, R.style.AppTheme);
                     dialog.setIndeterminate(true);
                     dialog.setMessage("Authenticating ...");
-                    dialog.show();
+                    dialog.show();*/
 
                     new Handler().postDelayed(new Runnable() {
                         @Override

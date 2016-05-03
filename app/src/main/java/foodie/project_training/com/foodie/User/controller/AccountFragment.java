@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,10 +66,12 @@ public class AccountFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
-        final ProgressDialog dialog = new ProgressDialog(getContext(), R.style.AppTheme_NoActionBar);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please wait ...");
-        dialog.show();
+        final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+                .title("Authenticating ...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(true)
+                .show();
+
 
         new Handler().postDelayed(new Runnable() {
             @Override

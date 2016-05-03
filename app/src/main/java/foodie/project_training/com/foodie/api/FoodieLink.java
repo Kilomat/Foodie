@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,10 +39,10 @@ import foodie.project_training.com.foodie.User.model.UserSerializer;
 public class FoodieLink {
 
     private Context context;
-    private ProgressDialog dialog;
+    private MaterialDialog dialog;
     private static final String PREFS_NAME = "PrefsFile";
 
-    public FoodieLink(Context context, ProgressDialog dialog) {
+    public FoodieLink(Context context, MaterialDialog dialog) {
         this.context = context;
         this.dialog = dialog;
     }

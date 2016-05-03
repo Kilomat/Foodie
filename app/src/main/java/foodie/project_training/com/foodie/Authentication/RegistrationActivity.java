@@ -1,14 +1,17 @@
 package foodie.project_training.com.foodie.Authentication;
 
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,16 +52,21 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.registration_activity);
         ButterKnife.bind(this);
 
+        password.setTypeface(Typeface.DEFAULT_BOLD);
+        password.setTransformationMethod(new PasswordTransformationMethod());
+        confirmPassword.setTypeface(Typeface.DEFAULT_BOLD);
+        confirmPassword.setTransformationMethod(new PasswordTransformationMethod());
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkPassword() == true) {
 
-                    final ProgressDialog dialog = new ProgressDialog(RegistrationActivity.this, R.style.AppTheme_NoActionBar);
-                    dialog.setIndeterminate(true);
-                    dialog.setMessage("Creating a new user ...");
-                    dialog.show();
+                    final MaterialDialog dialog = new MaterialDialog.Builder(RegistrationActivity.this)
+                            .title("Creating a new user ...")
+                            .progress(true, 0)
+                            .progressIndeterminateStyle(true)
+                            .show();
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
