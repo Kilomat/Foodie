@@ -23,9 +23,9 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Informations](#informations)
     - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
 
-- [Moment](#evaluations)
+- [Moment](#moment)
     - [X] [Poster un moment](#poster-un-moment)
-    - [X] [Récupérer les moments d'un utilisateur](#récupérér-moment-par-utilisateur)
+    - [X] [Récupérer les moments d'un utilisateur](#récupérer-moment-par-utilisateur) 
 
 - [Gestion des repas](#gestion-des-repas)
     - [ ] [Ajouter un repas](#ajouter-un-repas)
