@@ -155,7 +155,7 @@ Valeur  | Description               | Retour Json
 
 
 
-# Moment (en attente d'upload)
+# Moment
 
 ## Poster un moment
 
@@ -184,15 +184,6 @@ Valeur  | Description               | Retour Json
 ```
 GET moments/__USER_ID__/__JWT__
 ```
-
-- Status code
-
-Valeur  | Description               | Retour Json
-------- | -----------               | -----------
-200     | Ok                        | "ok"
-401     | Echec d'authentification  | {"error":"Bad credentials"}
-403     | Droits insuffisants       | {"error":"Forbidden"}
-406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
 
 - Retour en cas de succès
 
