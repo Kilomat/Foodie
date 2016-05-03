@@ -25,7 +25,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
 
 - [Moment](#evaluations)
     - [X] [Poster un moment](#poster-un-moment)
-    - [X] [Récupérer les moments d'un utilisateur](#récupérér-les-moments)
+    - [X] [Récupérer les moments d'un utilisateur](#récupérér-moment-par-utilisateur)
 
 - [Gestion des repas](#gestion-des-repas)
     - [ ] [Ajouter un repas](#ajouter-un-repas)
@@ -113,10 +113,9 @@ data {
 
 ***Nécessite une authentification***
 
-Tous les paramètres ne sont pas obligatoires, il est possible d'en modifier que quelques un ou même un seul.
 
 ```
-PUT users/__USER_ID__/
+PUT users/__USER_ID__/__JWT__
 {
     firstName:          "Prénom",
     lastName:           "Nom",
@@ -141,6 +140,72 @@ Valeur  | Description               | Retour Json
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+
+
+
+
+
+
+
+# Moment
+
+## Poster un moment
+
+***Nécessite une authentification***
+
+```
+POST moments
+{
+    lattitude:      "lattitude du smartphone",
+    longitude:      "longitude du smartphone",
+    description:    "description"
+}
+```
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | OK
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+
+## Récupérer moment par utilisateur
+
+***Nécessite une authentification***
+
+
+```
+GET moments/__USER_ID__/__JWT__
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "OK"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+- Retour en cas de succès
+
+```
+data {
+    "USER_ID1": "Status participation",
+    "USER_ID2": "Status participation",
+    "USER_ID3": "Status participation",
+    ...
+}
+```
+
+
+
+
+
+
+
 
 ## Ajouter un repas
 
@@ -321,55 +386,3 @@ Valeur  | Description               | Retour Json
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 404     | ID repas inconnue         | {"error":"Unknown ID"}
-
-
-# Moment
-
-## Poster un moment
-
-***Nécessite une authentification***
-
-```
-POST moment
-{
-    lattitude:      "lattitude du smartphone",
-    longitude:      "longitude du smartphone",
-    description:    "description"
-}
-```
-- Status code
-
-Valeur  | Description               | Retour Json
-------- | -----------               | -----------
-200     | Ok                        | OK
-400     | Erreur dans les paramètres| {"error":"Bad parameter"}
-401     | Echec d'authentification  | {"error":"Bad credentials"}
-
-## Récupérer moment d'un utilisateur
-
-***Nécessite une authentification***
-
-
-```
-GET moment/__USER_ID__/__JWT__
-```
-
-- Status code
-
-Valeur  | Description               | Retour Json
-------- | -----------               | -----------
-200     | Ok                        | "OK"
-401     | Echec d'authentification  | {"error":"Bad credentials"}
-403     | Droits insuffisants       | {"error":"Forbidden"}
-406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
-
-- Retour en cas de succès
-
-```
-data {
-    "USER_ID1": "Status participation",
-    "USER_ID2": "Status participation",
-    "USER_ID3": "Status participation",
-    ...
-}
-```
