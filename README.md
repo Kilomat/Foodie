@@ -81,7 +81,7 @@ Valeur  | Description              | Retour Json
 ***Nécessite une authentification***
 
 ```
-GET users/__USER_ID__/
+GET users/__USER_ID__/__JWT__
 ```
 
 - Status code
@@ -149,25 +149,30 @@ Valeur  | Description               | Retour Json
 
 
 
-# Moment
+
+
+
+
+
+
+# Moment (en attente d'upload)
 
 ## Poster un moment
 
 ***Nécessite une authentification***
 
 ```
-POST moments
+POST moments/__JWT__
 {
-    lattitude:      "lattitude du smartphone",
-    longitude:      "longitude du smartphone",
-    description:    "description"
+    content:     "contenu",
+    location:    "lieu"
 }
 ```
 - Status code
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | OK
+200     | Ok                        | "Moment created"
 400     | Erreur dans les paramètres| {"error":"Bad parameter"}
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 
@@ -184,7 +189,7 @@ GET moments/__USER_ID__/__JWT__
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | "OK"
+200     | Ok                        | "ok"
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
@@ -192,13 +197,36 @@ Valeur  | Description               | Retour Json
 - Retour en cas de succès
 
 ```
-data {
-    "USER_ID1": "Status participation",
-    "USER_ID2": "Status participation",
-    "USER_ID3": "Status participation",
+{
+  "Moments": [
+    {
+      "id": "57274c05212129f448c65d12",
+      "userId": "572097a68f8d6997feab8c02",
+      "content": "momentContent",
+      "location": "momentLocation",
+      "postedAt": "momentPostedAt"
+    },
+    {
+      "id": "57274c26212129f448c65d15",
+      "userId": "572097a68f8d6997feab8c02",
+      "content": "2",
+      "location": "2",
+      "postedAt": "2"
+    },
+    {
+      "id": "57274c2f212129f448c65d16",
+      "userId": "572097a68f8d6997feab8c02",
+      "content": "3",
+      "location": "3",
+      "postedAt": "3"
+    }
     ...
+  ]
 }
 ```
+
+
+
 
 
 
