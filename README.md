@@ -23,6 +23,11 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Informations](#informations)
     - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
 
+- [Fonctions restaurant](#fonctions-restaurant)
+    - [X] [Créer](#créer-restaurant)
+    - [x] [Information restaurant](#information-restaurant)
+    - [X] [Récupérer les restaurants par utilisateur](#récupérer-les-restaurants-par-utilisateur)
+
 - [Moment](#moment)
     - [X] [Poster un moment](#poster-un-moment)
     - [X] [Récupérer les moments d'un utilisateur](#récupérer-moment-par-utilisateur) 
@@ -113,7 +118,7 @@ data {
 
 
 
-***Nécessite une authentification***
+***Nécessite une authentification***<br>
 ***Le JWT renvoyé remplace l'ancien***
 
 
@@ -143,6 +148,121 @@ Valeur  | Description               | Retour Json
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+
+
+
+
+
+
+
+
+
+# Fonctions restaurant
+
+## Créer restaurant
+
+***Nécessite une authentification***
+
+```
+POST restaurants/__JWT__
+{
+    "name": "nom restaurant",
+    "adress": "adresse restaurant",
+    "city": "ville restaurant",
+    "description": "description restaurant",
+    "places": "nombre de place (4)"   
+}
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | "Rstaurant created"
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+## Information restaurant
+
+
+***Nécessite une authentification***
+
+```
+GET /restaurants/__RESTAURANTID__/__JWT__
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+{
+  "Restaurant": {
+    "id": "5729e38bdf20371c262cb7e1",
+    "userId": "570fd7cb3e9c3ab6b23f48f6",
+    "name": "restaurant1",
+    "adress": "adress1",
+    "city": "city1",
+    "description": "description1",
+    "places": 2
+  }
+}
+```
+
+
+## Récupérer les restaurants par utilisateur
+
+***Nécessite une authentification***
+
+```
+GET /restaurants/user/__USERID/__JWT__
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+{
+  "Restaurants": [
+    {
+      "id": "5729e38bdf20371c262cb7e1",
+      "userId": "570fd7cb3e9c3ab6b23f48f6",
+      "name": "restaurant1",
+      "adress": "adress1",
+      "city": "city1",
+      "description": "description1",
+      "places": 2
+    },
+    {
+      "id": "5729e3c0df20371c262cb7e2",
+      "userId": "570fd7cb3e9c3ab6b23f48f6",
+      "name": "restaurant2",
+      "adress": "adress1",
+      "city": "city1",
+      "description": "description1",
+      "places": 4
+    }
+  ]
+}
+```
 
 
 
@@ -218,6 +338,11 @@ GET moments/__USER_ID__/__JWT__
   ]
 }
 ```
+
+
+
+
+
 
 
 
