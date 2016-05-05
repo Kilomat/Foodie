@@ -34,7 +34,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
 
 - [Gestion des repas](#gestion-des-repas)
     - [X] [Ajouter un repas](#ajouter-un-repas)
-    - [ ] [Informations repas](#informations-repas)
+    - [X] [Informations repas](#informations-repas)
     - [ ] [Liste des participants à un repas](#liste-des-participants-à-un-repas)
     - [ ] [Participer à un repas](#participer-à-un-repas)
     - [ ] [Annuler participtions repas](#annuler-un-repas)
@@ -374,4 +374,39 @@ Valeur  | Description               | Retour Json
 200     | Ok                        | "Meal Created"
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 406     | Vérification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+## Récupérer les restaurants par utilisateur
+
+***Nécessite une authentification***
+
+```
+GET /meals/__MEALID__/__JWT__
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+{
+  "Meal": {
+    "id": "5729ed63df20371c262cb7e4",
+    "restaurantId": "5729e38bdf20371c262cb7e1",
+    "title": "meal1",
+    "description": "description1",
+    "price": 20,
+    "city": "city1",
+    "active": true,
+    "postedAt": "2016-05-04T20:38:59.733+08:00"
+  }
+}
+```
 
