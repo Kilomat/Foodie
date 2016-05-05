@@ -24,7 +24,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
 
 - [Fonctions restaurant](#fonctions-restaurant)
-    - [X] [Créer](#créer-restaurant)
+    - [X] [Créer restaurant](#créer-restaurant)
     - [x] [Information restaurant](#information-restaurant)
     - [X] [Récupérer les restaurants par utilisateur](#récupérer-les-restaurants-par-utilisateur)
 
