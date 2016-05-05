@@ -35,7 +35,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
 - [Gestion des repas](#gestion-des-repas)
     - [X] [Ajouter un repas](#ajouter-un-repas)
     - [X] [Informations repas](#informations-repas)
-    - [ ] [Liste des participants à un repas](#liste-des-participants-à-un-repas)
+    - [X] [Modifier repas](#modifier-repas)
     - [ ] [Participer à un repas](#participer-à-un-repas)
     - [ ] [Annuler participtions repas](#annuler-un-repas)
 
@@ -410,3 +410,26 @@ Valeur  | Description              | Retour Json
 }
 ```
 
+## Modifier repas
+
+***Nécessite une authentification***
+
+
+```
+PUT /meals/__MEALID__/__JWT__
+{
+    "title": "nouveau title",
+    "description": "nouvelle description",
+    "price": "nouveau prix (10)
+    "active": (true - false)
+}
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "Meal updated"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
