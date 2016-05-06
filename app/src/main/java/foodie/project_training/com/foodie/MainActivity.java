@@ -1,6 +1,15 @@
 package foodie.project_training.com.foodie;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -20,28 +30,41 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.Momentum.controller.MomentumFragment;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
+import foodie.project_training.com.foodie.Restaurant.controller.RestaurantFragment;
 import foodie.project_training.com.foodie.User.controller.AccountFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
-    String  username = "Beau-Oudong TAN";
-    String  email = "tan.beauoudong@gmail.com";
-    int     profile = R.drawable.header_profil;
+    @Bind(R.id.tool_bar)
+    Toolbar toolbar;
+    @Bind(R.id.navigationView)
+    NavigationView navigationView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
-    @Bind(R.id.tool_bar) Toolbar toolbar;
-    private MenuItem  searchAction;
+    private MenuItem searchAction;
     private EditText edtSearch;
     private boolean isSearchOpened = false;
 
-    @Bind(R.id.navigationView)
-    NavigationView  navigationView;
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
-    @Bind(R.id.drawer_layout) DrawerLayout    drawerLayout;
-    ActionBarDrawerToggle   actionBarDrawerToggle;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         setupDrawerContent(navigationView);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -100,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_momentum:
                 fragmentClass = MomentumFragment.class;
                 break;
+            case R.id.nav_restaurant:
+                fragmentClass = RestaurantFragment.class;
+                break;
             case R.id.nav_coupons:
                 fragmentClass = MomentumFragment.class;
                 break;
@@ -107,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = MomentumFragment.class;
                 break;
             default:
-                fragmentClass = Momentum.class;
+                fragmentClass = MomentumFragment.class;
         }
 
         try {
@@ -160,10 +189,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void handleMenuSearch(){
+    protected void handleMenuSearch() {
         ActionBar action = getSupportActionBar(); //get the actionbar
 
-        if(isSearchOpened){ //test if the search is open
+        if (isSearchOpened) { //test if the search is open
 
             action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
             action.setDisplayShowTitleEnabled(true); //show the title in the action bar
@@ -183,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
             action.setCustomView(R.layout.search_bar);//add the custom view
             action.setDisplayShowTitleEnabled(false); //hide the title
 
-            edtSearch = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
+            edtSearch = (EditText) action.getCustomView().findViewById(R.id.edtSearch); //the text editor
 
             //this is a listener to do a search when the user clicks on search button
             edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -214,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(isSearchOpened) {
+        if (isSearchOpened) {
             handleMenuSearch();
             return;
         }
@@ -223,5 +252,45 @@ public class MainActivity extends AppCompatActivity {
 
     private void doSearch() {
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://foodie.project_training.com.foodie/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://foodie.project_training.com.foodie/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }

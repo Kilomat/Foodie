@@ -1,120 +1,86 @@
 package foodie.project_training.com.foodie.Momentum.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by beau- on 30/03/2016.
  */
 public class Momentum {
 
-    private int  id;
-    private int     type;
-    private String  title;
-    private String  username;
-    private int profile;
-    private int picture;
-    private String  comment;
-    private String  date;
-    private String  place;
-    private boolean myLike;
-    private int     like;
+    @SerializedName("_id")
+    private String  id;
 
-    public Momentum(int id, int type, String title, String username, int profile, int picture, String comment, String date, String place, boolean myLike, int like) {
+    @SerializedName("userId")
+    private String  userId;
+
+    @SerializedName("content")
+    private String  content;
+
+    @SerializedName("location")
+    private String  location;
+
+    @SerializedName("postedAt")
+    private String  postedAt;
+
+    public Momentum() {}
+
+    public Momentum(String id, String userId, String content, String location, String postedAt) {
         this.id = id;
-        this.type = type;
-        this.title = title;
-        this.username = username;
-        this.profile = profile;
-        this.picture = picture;
-        this.comment = comment;
-        this.date = date;
-        this.place = place;
-        this.myLike = myLike;
-        this.like = like;
+        this.userId = userId;
+        this.content = content;
+        this.location = location;
+        this.postedAt = postedAt;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getType() { return type; }
-
-    public void setType(int type) {
-        this.type = type;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getTitle() {
-        return title;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getContent() {
+        return content;
     }
 
-    public String getUsername() {
-        return username;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getLocation() {
+        return location;
     }
 
-    public int getProfile() {
-        return profile;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public void setProfile(int profile) {
-        this.profile = profile;
+    public String getPostedAt() {
+        return postedAt;
     }
 
-    public int getPicture() {
-        return picture;
+    public void setPostedAt(String postedAt) {
+        this.postedAt = postedAt;
     }
 
-    public void setPicture(int picture) {
-        this.picture = picture;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public boolean isMyLike() {
-        return myLike;
-    }
-
-    public void setMyLike(boolean myLike) {
-        this.myLike = myLike;
-    }
-
-    public int getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
+    @Override
+    public String toString() {
+        return "Momentum{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", content='" + content + '\'' +
+                ", location='" + location + '\'' +
+                ", postedAt='" + postedAt + '\'' +
+                '}';
     }
 }

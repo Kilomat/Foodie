@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "foodie.project_training.com.foodie"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -42,4 +42,5 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
         transitive = true
     }
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

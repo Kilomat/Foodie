@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -41,18 +42,10 @@ import foodie.project_training.com.foodie.api.ServerCallBack;
  */
 public class AccountFragment extends Fragment {
 
-    @Bind(R.id.name)
-    TextView name;
-
-    @Bind(R.id.email)
-    TextView email;
-
-
-    @Bind(R.id.recyclerView)
-    RecyclerView    recyclerView;
-
-    @Bind(R.id.edit_btn)
-    FloatingActionButton    editBtn;
+    @Bind(R.id.name) TextView name;
+    @Bind(R.id.email) TextView email;
+    @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.edit_btn) FloatingActionButton editBtn;
 
     private static final String PREFS_NAME = "PrefsFile";
 
@@ -67,7 +60,7 @@ public class AccountFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
 
         final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
-                .title("Authenticating ...")
+                .title("Please wait a moment ...")
                 .progress(true, 0)
                 .progressIndeterminateStyle(true)
                 .show();
@@ -77,11 +70,11 @@ public class AccountFragment extends Fragment {
             @Override
             public void run() {
                 SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
-               // String jwt = settings.getString("JWT", "Nothing");
                 String uid = settings.getString("UID", "Nothing");
+                String jwt = settings.getString("JWT", "Nothing");
 
                 FoodieLink link = new FoodieLink(getContext(), dialog);
-                link.getUser(uid,
+                link.getUser(uid, jwt,
                         new ServerCallBack() {
 
                             @Override
@@ -91,7 +84,7 @@ public class AccountFragment extends Fragment {
                                 try {
                                     userArray = result.getJSONArray("User");
                                     for (int i = 0; i < userArray.length(); i++) {
-                                        JSONObject userObj = userArray.getJSONObject(i);
+                                        final JSONObject userObj = userArray.getJSONObject(i);
 
                                         final User user = new User();
 
@@ -102,7 +95,7 @@ public class AccountFragment extends Fragment {
                                         user.setBirthday(userObj.getString("birthday"));
                                         user.setAddress(userObj.getString("adress"));
                                         user.setCity(userObj.getString("city"));
-                                        user.setZipcode(userObj.getDouble("zipcode"));
+                                        user.setZipcode(userObj.getInt("zipcode"));
                                         user.setBio(userObj.getString("bio"));
                                         user.setGender(userObj.getString("gender"));
                                         user.setPhone(userObj.getString("phone"));
@@ -132,7 +125,7 @@ public class AccountFragment extends Fragment {
                                             @Override
                                             public void onClick(View v) {
                                                 Intent  intent = new Intent(getContext(), EditAccountActivity.class);
-                                                intent.putExtra("user", (Serializable)user);
+                                                intent.putExtra("user", user);
                                                 startActivity(intent);
                                             }
                                         });

@@ -20,13 +20,10 @@ import foodie.project_training.com.foodie.Momentum.model.Momentum;
 public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.MomentViewHolder> {
 
     public static class MomentViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.title) TextView    title;
-        @Bind(R.id.username) TextView    username;
-        @Bind(R.id.profile_image) ImageView   profile;
-        @Bind(R.id.picture) ImageView   picture;
-        @Bind(R.id.comment) TextView    comment;
-        @Bind(R.id.date) TextView     date;
-        @Bind(R.id.place) TextView    place;
+        @Bind(R.id.user) TextView user;
+        @Bind(R.id.location) TextView location;
+        @Bind(R.id.datePost) TextView datePost;
+        @Bind(R.id.content) TextView content;
 
         public MomentViewHolder(View itemView) {
             super(itemView);
@@ -49,13 +46,10 @@ public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.Moment
 
     @Override
     public void onBindViewHolder(MomentumAdapter.MomentViewHolder holder, int position) {
-        holder.title.setText(momentums.get(position).getTitle());
-        holder.username.setText(momentums.get(position).getUsername());
-        holder.profile.setImageResource(momentums.get(position).getProfile());
-        holder.picture.setImageResource(momentums.get(position).getPicture());
-        holder.comment.setText(momentums.get(position).getComment());
-        holder.date.setText(momentums.get(position).getDate());
-        holder.place.setText(momentums.get(position).getPlace());
+        holder.user.setText(momentums.get(position).getUserId());
+        holder.location.setText(momentums.get(position).getLocation());
+        holder.datePost.setText(momentums.get(position).getPostedAt());
+        holder.content.setText(momentums.get(position).getContent());
     }
 
     @Override

@@ -2,6 +2,7 @@ package foodie.project_training.com.foodie.User.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import foodie.project_training.com.foodie.Coupon.model.Coupon;
@@ -11,7 +12,7 @@ import foodie.project_training.com.foodie.Momentum.model.Momentum;
 /**
  * Created by beau- on 10/04/2016.
  */
-public class User {
+public class User implements Serializable {
 
     @SerializedName("id")
     private String  id;
@@ -38,7 +39,7 @@ public class User {
     private String  city;
 
     @SerializedName("zipcode")
-    private double  zipcode;
+    private int  zipcode;
 
     @SerializedName("bio")
     private String  bio;
@@ -84,7 +85,7 @@ public class User {
                 String birthday,
                 String address,
                 String city,
-                double zipcode,
+                int zipcode,
                 String phone,
                 String gender,
                 int userType,
@@ -168,11 +169,11 @@ public class User {
         this.city = city;
     }
 
-    public double getZipcode() {
+    public int getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(double zipcode) {
+    public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
     }
 

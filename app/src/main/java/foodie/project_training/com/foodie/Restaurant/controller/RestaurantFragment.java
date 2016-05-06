@@ -1,10 +1,10 @@
-package foodie.project_training.com.foodie.Momentum.controller;
+package foodie.project_training.com.foodie.Restaurant.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,17 +21,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import foodie.project_training.com.foodie.IconTextAdapter;
-import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.Momentum.controller.MomentumAdapter;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
-import foodie.project_training.com.foodie.User.controller.EditAccountActivity;
-import foodie.project_training.com.foodie.User.model.User;
+import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.Utils.MyLocation;
 import foodie.project_training.com.foodie.api.FoodieLink;
 import foodie.project_training.com.foodie.api.ServerCallBack;
@@ -39,12 +37,11 @@ import foodie.project_training.com.foodie.api.ServerCallBack;
 /**
  * Created by beau- on 30/03/2016.
  */
-public class MomentumFragment extends Fragment {
+public class RestaurantFragment extends Fragment {
 
-    @Bind(R.id.edit_moment) EditText myMoment;
-    @Bind(R.id.btn_send) ImageButton sendBtn;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.add_btn) FloatingActionButton addButton;
 
     private static final String PREFS_NAME = "PrefsFile";
     private FoodieLink  link;
@@ -53,7 +50,7 @@ public class MomentumFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.momentum_fragment, container, false);
+        View view = inflater.inflate(R.layout.restaurant_fragment, container, false);
         ButterKnife.bind(this, view);
 
         SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
@@ -68,21 +65,6 @@ public class MomentumFragment extends Fragment {
 
         link = new FoodieLink(getContext(), dialog);
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        MyLocation location = new MyLocation(getContext());
-                        dialog.show();
-                        link.addMoment(myMoment.getText().toString(), location.getCurrentCity(), jwt);
-                    }
-                }, 3000);
-            }
-        });
-
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -96,6 +78,14 @@ public class MomentumFragment extends Fragment {
             }
         });
 
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CreateRestaurantActivity.class));
+            }
+        });
+
         return view;
     }
 
@@ -104,25 +94,28 @@ public class MomentumFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                link.getMomentByUser(uid, jwt, new ServerCallBack() {
+                link.getRestaurantsByUser(uid, jwt, new ServerCallBack() {
                     @Override
                     public void onSuccess(JSONObject result) {
-                        JSONArray userArray = null;
-                        List<Momentum>  momentumList = new ArrayList<>();
+                        JSONArray array = null;
+                        List<Restaurant>  restaurants = new ArrayList<>();
 
                         try {
-                            userArray = result.getJSONArray("Moments");
-                            for (int i = 0; i < userArray.length(); i++) {
-                                JSONObject userObj = userArray.getJSONObject(i);
-                                Momentum momentum = new Momentum("",
-                                        userObj.getString("userId"),
-                                        userObj.getString("content"),
-                                        userObj.getString("location"),
-                                        userObj.getString("postedAt"));
-                                momentumList.add(momentum);
+                            array = result.getJSONArray("Restaurants");
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject object = array.getJSONObject(i);
+                                Restaurant restaurant = new Restaurant(
+                                        object.getString("id"),
+                                        object.getString("userId"),
+                                        object.getString("name"),
+                                        object.getString("adress"),
+                                        object.getString("city"),
+                                        object.getString("description"),
+                                        object.getInt("places"));
+                                restaurants.add(restaurant);
                             }
 
-                            MomentumAdapter adapter = new MomentumAdapter(momentumList);
+                            RestaurantAdapter adapter = new RestaurantAdapter(restaurants);
                             recyclerView.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

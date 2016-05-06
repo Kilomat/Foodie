@@ -65,10 +65,6 @@ public class AuthenticationActivity extends AppCompatActivity {
                             .progress(true, 0)
                             .progressIndeterminateStyle(true)
                             .show();
-/*                    final ProgressDialog dialog = new ProgressDialog(AuthenticationActivity.this, R.style.AppTheme);
-                    dialog.setIndeterminate(true);
-                    dialog.setMessage("Authenticating ...");
-                    dialog.show();*/
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
