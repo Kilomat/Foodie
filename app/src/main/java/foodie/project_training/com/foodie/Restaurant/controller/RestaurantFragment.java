@@ -105,7 +105,7 @@ public class RestaurantFragment extends Fragment {
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
                                 Restaurant restaurant = new Restaurant(
-                                        object.getString("id"),
+                                        object.get("id"),
                                         object.getString("userId"),
                                         object.getString("name"),
                                         object.getString("adress"),
@@ -113,6 +113,7 @@ public class RestaurantFragment extends Fragment {
                                         object.getString("description"),
                                         object.getInt("places"));
                                 restaurants.add(restaurant);
+                                System.out.println("restaur : " + restaurant.toString());
                             }
 
                             RestaurantAdapter adapter = new RestaurantAdapter(restaurants);

@@ -20,7 +20,7 @@ import foodie.project_training.com.foodie.User.model.User;
 public class Restaurant implements Serializable {
 
     @SerializedName("_id")
-    private String  id;
+    private Object  id;
 
     @SerializedName("userId")
     private String  userId;
@@ -42,7 +42,7 @@ public class Restaurant implements Serializable {
 
     public Restaurant() {}
 
-    public Restaurant(String id, String userId, String name, String address, String city, String description, int place) {
+    public Restaurant(Object id, String userId, String name, String address, String city, String description, int place) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -52,11 +52,11 @@ public class Restaurant implements Serializable {
         this.place = place;
     }
 
-    public String getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         this.id = id;
     }
 
