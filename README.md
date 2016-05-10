@@ -36,8 +36,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Ajouter un repas](#ajouter-un-repas)
     - [X] [Informations repas](#informations-repas)
     - [X] [Modifier repas](#modifier-repas)
-    - [ ] [Participer à un repas](#participer-à-un-repas)
-    - [ ] [Annuler participtions repas](#annuler-un-repas)
+    - [X] [Participation à un repas](#participation-à-un-repas)
 
 
 
@@ -430,6 +429,30 @@ PUT /meals/__MEALID__/__JWT__
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
 200     | Ok                        | "Meal updated"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+
+## Participation à un repas
+
+***Nécessite une authentification***
+
+
+```
+PUT  /meals/participation/:jwt
+{
+    "mealId": "5731e7f087d464cdd0e9f8da",
+    "participation": (true-false)
+}
+```
+
+- Status code
+
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "User added to meal"  "User removed from meal"
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
