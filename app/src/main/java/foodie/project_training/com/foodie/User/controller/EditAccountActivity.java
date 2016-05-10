@@ -38,18 +38,6 @@ public class EditAccountActivity extends AppCompatActivity {
 
     @Bind(R.id.tool_bar) Toolbar toolbar;
     @Bind(R.id.ll) LinearLayout ll;
-//    @Bind(R.id.recyclerView) RecyclerView recyclerView;
-    /*@Bind(R.id.old_password) EditText oldPassword;
-    @Bind(R.id.new_password) EditText newPassword;
-    @Bind(R.id.confirm_new_password) EditText confirmNewPassword;
-    @Bind(R.id.last_name) EditText lastName;
-    @Bind(R.id.first_name) EditText firstName;
-    @Bind(R.id.address) EditText address;
-    @Bind(R.id.city) EditText city;
-    @Bind(R.id.zip_code) EditText zipCode;
-    @Bind(R.id.bio) EditText bio;
-    @Bind(R.id.gender) EditText gender;
-    @Bind(R.id.phone) EditText phone;*/
     @Bind(R.id.btn_confirm) ImageButton btnConfirm;
 
     private static final String PREFS_NAME = "PrefsFile";
@@ -80,13 +68,6 @@ public class EditAccountActivity extends AppCompatActivity {
         fields.add(new String("Bio"));
         fields.add(new String("Gender"));
         fields.add(new String("Phone"));
-/*
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-
-        final EditAccountAdapter adapter = new EditAccountAdapter(fields);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);*/
 
         final List<String> listArg = new ArrayList<>();
 
@@ -110,29 +91,9 @@ public class EditAccountActivity extends AppCompatActivity {
             editText.setTextColor(Color.WHITE);
             editText.setHintTextColor(Color.WHITE);
             editText.setTypeface(Typeface.DEFAULT_BOLD);
-/*            editText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listArg.set(cnt, editText.getText().toString());
-                    System.out.println("Position : " + cnt + " Text : " + editText.getText().toString());
-                }
-            });*/
             listEd.add(editText);
             ll.addView(editText);
         }
-
-/*
-        adapter.SetOnItemClickListener(new EditAccountAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                EditText editText = (EditText)v;
-
-                listArg.set(pos, editText.getText().toString());
-                System.out.println("List : " + listArg.get(pos) + " Pos " + (pos));
-                System.out.println("Position" + pos);
-//                EditText contentEditext = (EditText)v.getTag();
-            }
-        });*/
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

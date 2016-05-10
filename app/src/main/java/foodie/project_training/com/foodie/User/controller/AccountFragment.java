@@ -9,12 +9,17 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -29,11 +34,15 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import foodie.project_training.com.foodie.GalleryAdapter;
 import foodie.project_training.com.foodie.IconTextAdapter;
 import foodie.project_training.com.foodie.Momentum.controller.MomentumAdapter;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
 import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.Restaurant.controller.RestaurantAdapter;
+import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.User.model.User;
+import foodie.project_training.com.foodie.Utils.MyLocation;
 import foodie.project_training.com.foodie.api.FoodieLink;
 import foodie.project_training.com.foodie.api.ServerCallBack;
 
@@ -44,36 +53,88 @@ public class AccountFragment extends Fragment {
 
     @Bind(R.id.name) TextView name;
     @Bind(R.id.email) TextView email;
-    @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.recyclerView_user) RecyclerView recyclerViewUser;
+    @Bind(R.id.gridView_restaurants) GridView gridViewRestaurants;
+    @Bind(R.id.edit_moment) EditText myMoment;
+    @Bind(R.id.btn_send) ImageButton sendBtn;
+    @Bind(R.id.recyclerView_momentums) RecyclerView recyclerViewMomentums;
     @Bind(R.id.edit_btn) FloatingActionButton editBtn;
 
     private static final String PREFS_NAME = "PrefsFile";
+    private FoodieLink link;
+    private MaterialDialog dialog;
+
+    private static String uid;
+    private static String jwt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.account_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        recyclerView.setHasFixedSize(true);
+        recyclerViewUser.setHasFixedSize(true);
+        recyclerViewMomentums.setHasFixedSize(true);
+        LinearLayoutManager llmUser = new LinearLayoutManager(getContext());
+        recyclerViewUser.setLayoutManager(llmUser);
+        LinearLayoutManager llmMomentums = new LinearLayoutManager(getContext());
+        recyclerViewMomentums.setLayoutManager(llmMomentums);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(llm);
-
-        final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+        dialog = new MaterialDialog.Builder(getContext())
                 .title("Please wait a moment ...")
                 .progress(true, 0)
                 .progressIndeterminateStyle(true)
-                .show();
+                .build();
 
+        link = new FoodieLink(getContext(), dialog);
+
+        SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
+        uid = settings.getString("UID", "Nothing");
+        jwt = settings.getString("JWT", "Nothing");
+
+        displayUserInfo();
+        displayMyRestaurants();
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+                        .title("Please wait a moment ...")
+                        .progress(true, 0)
+                        .progressIndeterminateStyle(true)
+                        .show();
+                link = new FoodieLink(getContext(), dialog);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        MyLocation location = new MyLocation(getContext());
+                        link.addMoment(myMoment.getText().toString(), location.getCurrentCity(), jwt);
+                    }
+                }, 3000);
+            }
+        });
+
+        displayMyMomentums();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                displayUserInfo();
+                displayMyRestaurants();
+                displayMyMomentums();
+            }
+        });
+
+        return view;
+    }
+
+    private void displayUserInfo() {
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences settings = getContext().getSharedPreferences(PREFS_NAME, 0);
-                String uid = settings.getString("UID", "Nothing");
-                String jwt = settings.getString("JWT", "Nothing");
 
-                FoodieLink link = new FoodieLink(getContext(), dialog);
                 link.getUser(uid, jwt,
                         new ServerCallBack() {
 
@@ -120,7 +181,7 @@ public class AccountFragment extends Fragment {
                                         titleList.add(user.getPhone());
 
                                         IconTextAdapter adapter = new IconTextAdapter(imgList, titleList);
-                                        recyclerView.setAdapter(adapter);
+                                        recyclerViewUser.setAdapter(adapter);
                                         editBtn.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
@@ -139,10 +200,98 @@ public class AccountFragment extends Fragment {
                 );
             }
         }, 3000);
-
-
-        return view;
     }
 
+    private void displayMyRestaurants() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                link.getRestaurantsByUser(uid, jwt, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        JSONArray array = null;
+
+                        try {
+                            final List<Restaurant>  restaurants = new ArrayList<>();
+                            array = result.getJSONArray("Restaurants");
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject object = array.getJSONObject(i);
+                                Restaurant restaurant = new Restaurant(
+                                        object.get("id"),
+                                        object.getString("userId"),
+                                        object.getString("name"),
+                                        object.getString("adress"),
+                                        object.getString("city"),
+                                        object.getString("description"),
+                                        object.getInt("places"));
+                                restaurants.add(restaurant);
+                            }
+
+                            List<Integer> imgList = new ArrayList<>();
+                            List<String> titleList = new ArrayList<>();
+
+                            for ( Restaurant restaurant : restaurants ) {
+                                imgList.add(R.drawable.restaurant_icon);
+                                titleList.add(restaurant.getName());
+                                System.out.println("Resto " + restaurant.getName());
+                            }
+
+                            GalleryAdapter adapter = new GalleryAdapter(getContext(), imgList, titleList);
+                            gridViewRestaurants.setAdapter(adapter);
+
+                            gridViewRestaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("restoId", restaurants.get(position).getId().toString());
+                                    startActivity(intent);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 3000);
+
+    }
+
+    private void displayMyMomentums() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                link.getMomentByUser(uid, jwt, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        JSONArray userArray = null;
+                        List<Momentum>  momentumList = new ArrayList<>();
+
+                        try {
+                            userArray = result.getJSONArray("Moments");
+                            for (int i = 0; i < userArray.length(); i++) {
+                                JSONObject userObj = userArray.getJSONObject(i);
+                                Momentum momentum = new Momentum(
+                                        userObj.get("id"),
+                                        userObj.getString("userId"),
+                                        userObj.getString("content"),
+                                        userObj.getString("location"),
+                                        userObj.getString("postedAt"));
+                                momentumList.add(momentum);
+                            }
+
+                            MomentumAdapter adapter = new MomentumAdapter(momentumList);
+                            recyclerViewMomentums.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 3000);
+    }
 
 }

@@ -60,23 +60,23 @@ public class MomentumFragment extends Fragment {
         uid = settings.getString("UID", "Nothing");
         jwt = settings.getString("JWT", "Nothing");
 
+
         final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
                 .title("Please wait a moment ...")
                 .progress(true, 0)
                 .progressIndeterminateStyle(true)
                 .build();
-
         link = new FoodieLink(getContext(), dialog);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                dialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         MyLocation location = new MyLocation(getContext());
-                        dialog.show();
                         link.addMoment(myMoment.getText().toString(), location.getCurrentCity(), jwt);
                     }
                 }, 3000);
@@ -84,7 +84,6 @@ public class MomentumFragment extends Fragment {
         });
 
         recyclerView.setHasFixedSize(true);
-
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
@@ -114,7 +113,8 @@ public class MomentumFragment extends Fragment {
                             userArray = result.getJSONArray("Moments");
                             for (int i = 0; i < userArray.length(); i++) {
                                 JSONObject userObj = userArray.getJSONObject(i);
-                                Momentum momentum = new Momentum("",
+                                Momentum momentum = new Momentum(
+                                        userObj.get("id"),
                                         userObj.getString("userId"),
                                         userObj.getString("content"),
                                         userObj.getString("location"),

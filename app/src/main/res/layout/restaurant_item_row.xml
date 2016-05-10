@@ -45,14 +45,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Address"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="City"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/description"
@@ -70,8 +70,9 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:textAlignment="center"
-                android:gravity="right"
-                android:textSize="17sp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:text="Places"/>
         </LinearLayout>
 

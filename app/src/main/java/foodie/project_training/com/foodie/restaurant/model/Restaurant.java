@@ -107,4 +107,17 @@ public class Restaurant implements Serializable {
     public void setPlace(int place) {
         this.place = place;
     }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", description='" + description + '\'' +
+                ", place=" + place +
+                '}';
+    }
 }

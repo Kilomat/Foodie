@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Momentum {
 
     @SerializedName("_id")
-    private String  id;
+    private Object  id;
 
     @SerializedName("userId")
     private String  userId;
@@ -25,7 +25,7 @@ public class Momentum {
 
     public Momentum() {}
 
-    public Momentum(String id, String userId, String content, String location, String postedAt) {
+    public Momentum(Object id, String userId, String content, String location, String postedAt) {
         this.id = id;
         this.userId = userId;
         this.content = content;
@@ -33,11 +33,11 @@ public class Momentum {
         this.postedAt = postedAt;
     }
 
-    public String getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         this.id = id;
     }
 

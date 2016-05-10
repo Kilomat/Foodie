@@ -1,0 +1,101 @@
+package foodie.project_training.com.foodie.Restaurant.controller;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
+import foodie.project_training.com.foodie.api.FoodieLink;
+import foodie.project_training.com.foodie.api.ServerCallBack;
+
+/**
+ * Created by beau- on 06/05/2016.
+ */
+public class InfoRestaurantActivity extends AppCompatActivity {
+
+    @Bind(R.id.tool_bar) Toolbar toolbar;
+    @Bind(R.id.name) TextView name;
+    @Bind(R.id.address) TextView address;
+    @Bind(R.id.city) TextView city;
+    @Bind(R.id.description) TextView description;
+    @Bind(R.id.places) TextView places;
+    @Bind(R.id.btn_create) ImageButton createBtn;
+
+    private static final String PREFS_NAME = "PrefsFile";
+    private FoodieLink  link;
+    private String uid;
+    private String jwt;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.info_restaurant_activity);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        uid = settings.getString("UID", "Nothing");
+        jwt = settings.getString("JWT", "Nothing");
+
+
+        final MaterialDialog dialog = new MaterialDialog.Builder(InfoRestaurantActivity.this)
+                .title("Please wait a moment ...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(true)
+                .show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent intent = getIntent();
+
+                String restoId = intent.getStringExtra("restoId");
+
+                link = new FoodieLink(getApplicationContext(), dialog);
+                link.getInfoRestaurant(restoId, jwt, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        try {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 3000);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+}

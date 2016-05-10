@@ -14,11 +14,15 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.R;
 import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.api.FoodieLink;
+import foodie.project_training.com.foodie.api.ServerCallBack;
 
 /**
  * Created by beau- on 06/05/2016.
@@ -57,14 +61,15 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
                 if (validate(new EditText[] {name, address, city, description, places})) {
 
+                    final MaterialDialog dialog = new MaterialDialog.Builder(CreateRestaurantActivity.this)
+                            .title("Please wait a moment ...")
+                            .progress(true, 0)
+                            .progressIndeterminateStyle(true)
+                            .show();
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            final MaterialDialog dialog = new MaterialDialog.Builder(getApplicationContext())
-                                    .title("Please wait a moment ...")
-                                    .progress(true, 0)
-                                    .progressIndeterminateStyle(true)
-                                    .build();
 
                             Restaurant restaurant = new Restaurant("",
                                     "",
@@ -75,7 +80,17 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                                     Integer.parseInt(places.getText().toString()));
 
                             link = new FoodieLink(getApplicationContext(), dialog);
-                            link.addRestaurant(restaurant, jwt);
+                            link.addRestaurant(restaurant, jwt, new ServerCallBack() {
+                                @Override
+                                public void onSuccess(JSONObject result) {
+                                    try {
+                                        Toast.makeText(getApplicationContext(), result.getString("ok"), Toast.LENGTH_LONG).show();
+                                        finish();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                         }
                     }, 3000);
                 } else {

@@ -106,6 +106,7 @@ public class FoodieLink {
     }
 
     public void authUser(final String email, final String password) {
+
         User user = new User(email, password);
 
         final JsonObject jsonObject = new JsonObject();
@@ -160,34 +161,14 @@ public class FoodieLink {
 
     public void getUser(String _id, String jwt, final ServerCallBack callBack) {
 
-        final User user = new User();
-
         CustomStringRequest authRequest = new CustomStringRequest(Request.Method.GET,
                 FoodiePath._USERS_ + "/" + _id + "/" + jwt,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         dialog.dismiss();
-//                        System.out.println("response : " + response);
                         try {
                             callBack.onSuccess(new JSONObject(response));
-                            /*JSONObject  respObj = new JSONObject(response);
-                            JSONArray   userArray = new JSONArray(respObj.getJSONArray("User"));
-                            for (int i = 0; i < userArray.length(); i++) {
-                                JSONObject userObj = userArray.getJSONObject(i);
-                                user.setEmail(userObj.getString("email"));
-                                user.setFirstName(userObj.getString("firstName"));
-                                user.setLastName(userObj.getString("lastName"));
-                                user.setBirthday(userObj.getString("birthday"));
-                                user.setAddress(userObj.getString("address"));
-                                user.setCity(userObj.getString("city"));
-                                user.setZipcode(userObj.getDouble("zipcode"));
-                                user.setBio(userObj.getString("bio"));
-                                user.setGender(userObj.getString("gender"));
-                                user.setPhone(userObj.getString("phone"));
-                                user.setNotification(userObj.getString("notification"));
-
-                            }*/
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -215,8 +196,8 @@ public class FoodieLink {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(authRequest);
-    }
 
+    }
 
     public void updateUser(User user, String jwt) {
 
@@ -360,7 +341,7 @@ public class FoodieLink {
     }
 
 
-    public void addRestaurant(Restaurant restaurant, String jwt) {
+    public void addRestaurant(Restaurant restaurant, String jwt, final ServerCallBack callBack) {
 
         final JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", restaurant.getName());
@@ -376,8 +357,7 @@ public class FoodieLink {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject  objectResp = new JSONObject(response);
-                            Toast.makeText(context, objectResp.getString("ok"), Toast.LENGTH_LONG).show();
+                            callBack.onSuccess(new JSONObject(response));
                             dialog.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -412,6 +392,45 @@ public class FoodieLink {
 
         CustomStringRequest request = new CustomStringRequest(Request.Method.GET,
                 FoodiePath._RESTAURANTS_ + restauId + "/" + jwt,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        dialog.dismiss();
+                        try {
+                            callBack.onSuccess(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        if (isNetworkAvailable()) {
+                            try {
+                                String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                String errorString = errorObject.getString("error");
+                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+    }
+
+    public void getRestaurants(String jwt, final ServerCallBack callBack) {
+
+        CustomStringRequest request = new CustomStringRequest(Request.Method.GET,
+                FoodiePath._RESTAURANTS_ + jwt,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

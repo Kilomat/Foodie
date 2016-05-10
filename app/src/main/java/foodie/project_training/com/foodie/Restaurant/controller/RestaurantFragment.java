@@ -94,13 +94,12 @@ public class RestaurantFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                link.getRestaurantsByUser(uid, jwt, new ServerCallBack() {
+                link.getRestaurants(jwt, new ServerCallBack() {
                     @Override
                     public void onSuccess(JSONObject result) {
                         JSONArray array = null;
-                        List<Restaurant>  restaurants = new ArrayList<>();
 
-                        try {
+                        try {List<Restaurant>  restaurants = new ArrayList<>();
                             array = result.getJSONArray("Restaurants");
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
