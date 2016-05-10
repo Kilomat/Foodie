@@ -27,9 +27,12 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [X] [Créer restaurant](#créer-restaurant)
     - [x] [Information restaurant](#information-restaurant)
     - [X] [Récupérer les restaurants par utilisateur](#récupérer-les-restaurants-par-utilisateur)
+    - [X] [Récupérer tous les restaurants](#récupérer-tous-les-restaurants)
+    - [x] [Modifier restaurant](#modifier-restaurant)
 
 - [Moment](#moment)
     - [X] [Poster un moment](#poster-un-moment)
+    - [X] [Effacer un moment](#effacer-un-moment)
     - [X] [Récupérer les moments d'un utilisateur](#récupérer-moment-par-utilisateur) 
 
 - [Gestion des repas](#gestion-des-repas)
@@ -156,6 +159,7 @@ Valeur  | Description               | Retour Json
 
 
 
+
 # Fonctions restaurant
 
 ## Créer restaurant
@@ -261,6 +265,81 @@ Valeur  | Description              | Retour Json
 }
 ```
 
+## Récupérer tous les restaurants
+
+***Nécessite une authentification***
+
+```
+GET /restaurants/__JWT__
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+{
+  "Restaurants": [
+    {
+      "id": "5729e38bdf20371c262cb7e1",
+      "userId": "570fd7cb3e9c3ab6b23f48f6",
+      "name": "restaurant1",
+      "adress": "adress1",
+      "city": "city1",
+      "description": "description1",
+      "places": 2
+    },
+    {
+      "id": "5729e3c0df20371c262cb7e2",
+      "userId": "570fd7cb3e9c3ab6b23f48f6",
+      "name": "restaurant2",
+      "adress": "adress1",
+      "city": "city1",
+      "description": "description1",
+      "places": 4
+    }
+  ]
+}
+```
+
+## Modification restaurant
+
+
+***Nécessite une authentification***
+
+```
+PUT /restaurants/__RESTAURANTUD__/__JWT__
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+{
+  "ok": "Restaurant updated"
+}
+```
+
+
+
+
+
+
 
 
 
@@ -295,6 +374,8 @@ Valeur  | Description               | Retour Json
 200     | Ok                        | "Moment created"
 400     | Erreur dans les paramètres| {"error":"Bad parameter"}
 401     | Echec d'authentification  | {"error":"Bad credentials"}
+
+
 
 ## Récupérer moment par utilisateur
 
@@ -333,6 +414,25 @@ GET moments/__USER_ID__/__JWT__
     }
     ...
   ]
+}
+```
+
+
+## Effacer un moment
+
+***Nécessite une authentification***
+
+
+
+```
+GET /moments/__MOMENTID__/__JWT__
+```
+
+- Retour en cas de succès
+
+```
+{
+  "ok": "Moment deleted"
 }
 ```
 
