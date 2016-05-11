@@ -39,6 +39,7 @@ import foodie.project_training.com.foodie.IconTextAdapter;
 import foodie.project_training.com.foodie.Momentum.controller.MomentumAdapter;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
 import foodie.project_training.com.foodie.R;
+import foodie.project_training.com.foodie.Restaurant.controller.InfoRestaurantActivity;
 import foodie.project_training.com.foodie.Restaurant.controller.RestaurantAdapter;
 import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.User.model.User;
@@ -242,7 +243,7 @@ public class AccountFragment extends Fragment {
                             gridViewRestaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent();
+                                    Intent intent = new Intent(getContext(), InfoRestaurantActivity.class);
                                     intent.putExtra("restoId", restaurants.get(position).getId().toString());
                                     startActivity(intent);
                                 }

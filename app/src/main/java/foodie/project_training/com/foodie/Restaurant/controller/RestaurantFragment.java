@@ -112,7 +112,6 @@ public class RestaurantFragment extends Fragment {
                                         object.getString("description"),
                                         object.getInt("places"));
                                 restaurants.add(restaurant);
-                                System.out.println("restaur : " + restaurant.toString());
                             }
 
                             RestaurantAdapter adapter = new RestaurantAdapter(restaurants);

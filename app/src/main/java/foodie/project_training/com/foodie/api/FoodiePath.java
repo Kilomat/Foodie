@@ -14,7 +14,8 @@ public class FoodiePath {
 
     public static final String _MOMENT_ = _FOODIE_ + "moments/";
 
-
     public static final String _RESTAURANTS_ = _FOODIE_ + "restaurants/";
+
+    public static final String _MEALS_ = _FOODIE_ + "meals/";
 }
 

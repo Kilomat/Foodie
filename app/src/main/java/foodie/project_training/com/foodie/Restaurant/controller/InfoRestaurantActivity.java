@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,7 +40,7 @@ public class InfoRestaurantActivity extends AppCompatActivity {
     @Bind(R.id.city) TextView city;
     @Bind(R.id.description) TextView description;
     @Bind(R.id.places) TextView places;
-    @Bind(R.id.btn_create) ImageButton createBtn;
+    @Bind(R.id.edit_btn) FloatingActionButton editBtn;
 
     private static final String PREFS_NAME = "PrefsFile";
     private FoodieLink  link;
@@ -57,7 +60,6 @@ public class InfoRestaurantActivity extends AppCompatActivity {
         uid = settings.getString("UID", "Nothing");
         jwt = settings.getString("JWT", "Nothing");
 
-
         final MaterialDialog dialog = new MaterialDialog.Builder(InfoRestaurantActivity.this)
                 .title("Please wait a moment ...")
                 .progress(true, 0)
@@ -70,13 +72,41 @@ public class InfoRestaurantActivity extends AppCompatActivity {
 
                 Intent intent = getIntent();
 
-                String restoId = intent.getStringExtra("restoId");
+                final String restoId = intent.getStringExtra("restoId");
 
                 link = new FoodieLink(getApplicationContext(), dialog);
                 link.getInfoRestaurant(restoId, jwt, new ServerCallBack() {
                     @Override
                     public void onSuccess(JSONObject result) {
                         try {
+                            final JSONObject obj = result.getJSONObject("Restaurant");
+                            name.setText(obj.getString("name"));
+                            address.setText(obj.getString("adress"));
+                            city.setText(obj.getString("city"));
+                            description.setText(obj.getString("description"));
+                            places.setText(String.valueOf(obj.getInt("places")));
+
+                            if ( uid.equals(obj.getString("userId")) ) {
+                                editBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        try {
+                                            Restaurant restaurant = new Restaurant(obj.get("id"),
+                                                    obj.getString("userId"),
+                                                    obj.getString("name"),
+                                                    obj.getString("adress"),
+                                                    obj.getString("city"),
+                                                    obj.getString("description"),
+                                                    obj.getInt("places"));
+                                            Intent intent = new Intent(InfoRestaurantActivity.this, CreateRestaurantActivity.class);
+                                            intent.putExtra("restaurant", restaurant);
+                                            startActivity(intent);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -84,6 +114,7 @@ public class InfoRestaurantActivity extends AppCompatActivity {
                 });
             }
         }, 3000);
+
     }
 
 

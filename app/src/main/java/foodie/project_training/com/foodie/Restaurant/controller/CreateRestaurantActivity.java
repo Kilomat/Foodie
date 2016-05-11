@@ -1,5 +1,6 @@
 package foodie.project_training.com.foodie.Restaurant.controller;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,16 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         uid = settings.getString("UID", "Nothing");
         jwt = settings.getString("JWT", "Nothing");
 
+        Intent intent = getIntent();
+        final Restaurant restaurantUpdate = (Restaurant)intent.getSerializableExtra("restaurant");
+        if (restaurantUpdate != null) {
+            name.setText(restaurantUpdate.getName());
+            address.setText(restaurantUpdate.getAddress());
+            city.setText(restaurantUpdate.getCity());
+            description.setText(restaurantUpdate.getDescription());
+            places.setText(String.valueOf(restaurantUpdate.getPlace()));
+        }
+
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +82,8 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
+                            link = new FoodieLink(getApplicationContext(), dialog);
+
                             Restaurant restaurant = new Restaurant("",
                                     "",
                                     name.getText().toString(),
@@ -79,18 +92,23 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                                     description.getText().toString(),
                                     Integer.parseInt(places.getText().toString()));
 
-                            link = new FoodieLink(getApplicationContext(), dialog);
-                            link.addRestaurant(restaurant, jwt, new ServerCallBack() {
-                                @Override
-                                public void onSuccess(JSONObject result) {
-                                    try {
-                                        Toast.makeText(getApplicationContext(), result.getString("ok"), Toast.LENGTH_LONG).show();
-                                        finish();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                            if (restaurantUpdate != null) {
+                                restaurant.setId(restaurantUpdate.getId());
+                                restaurant.setUserId(restaurantUpdate.getUserId());
+                                link.updateRestaurant(restaurant, jwt);
+                            } else {
+                                link.addRestaurant(restaurant, jwt, new ServerCallBack() {
+                                    @Override
+                                    public void onSuccess(JSONObject result) {
+                                        try {
+                                            Toast.makeText(getApplicationContext(), result.getString("ok"), Toast.LENGTH_LONG).show();
+                                            finish();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }, 3000);
                 } else {

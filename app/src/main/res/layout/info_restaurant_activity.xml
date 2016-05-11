@@ -13,32 +13,11 @@
             android:id="@+id/tool_bar"
             layout="@layout/tool_bar"></include>
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="25sp"
-            android:text="Name"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:text="By Username"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textStyle="italic"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="450dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -50,6 +29,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="Restaurant name"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:text="Name"
+            android:textAllCaps="true"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
             android:text="Address"
             android:textSize="20sp"
@@ -102,7 +101,18 @@
             android:text="100"
             android:textAllCaps="true"/>
 
-
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/edit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/account_edit_icon"
+        app:backgroundTint="@color/colorPrimary"/>
+
 
 </RelativeLayout>
