@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <title>Update your profil</title>
+        <link rel="stylesheet" type="text/css" href="infoUpdate.css">
+        
+        <!-- Jquery --
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS --
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- Optional theme --
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript --
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
+
+
+    </head>
+
+    <body>
+<div class="container">
+            <form class="form-horizontal" role="form" method="post" action="infoUpdate.php">
+                <h2>Profil</h2>
+
+                 <div class="form-group">
+                    <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="lastName" id="lastName" class="form-control" autofocus>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="firstName" id="firstName" class="form-control" autofocus>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="oldPassword" class="col-sm-3 control-label" >Old password</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="oldPassword" class="form-control" name="oldPassword">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword" class="col-sm-3 control-label" >New password</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="newPassword" class="form-control" name="newPassword">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="control-label col-sm-3">Date of birth</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <select name="year">
+                                  <option value="1990">1990</option>
+                                  <option value="1991">1991</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="month">
+                                  <option value="01">01</option>
+                                  <option value="02">02</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="day">
+                                  <option value="30">30</option>
+                                  <option value="31">31</option>
+                                </select>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="adress" class="col-sm-3 control-label">Adress</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="adress" id="adress" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="city" class="col-sm-3 control-label">City</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="city" id="city" class="form-control">
+                    </div>
+                </div>
+
+               
+                <div class="form-group">
+                    <label for="zipCode" class="col-sm-3 control-label">Zip code</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="zipCode" id="zipCode" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="bio" class="col-sm-3 control-label">Bio</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="bio" id="bio" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Gender</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <select name="gender">
+                                  <option value="female">Female</option>
+                                  <option value="male">Male</option>
+                                </select>
+                                <!--<div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="female" id="female">Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="male" id="male">Male
+                                    </label>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="col-sm-3 control-label">Phone</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="phone" id="phone" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Notifications</label>
+                    <div class="col-sm-9">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="notification" id="notification">
+                            </label>
+                        </div>
+                    </div>
+                </div> 
+                
+
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </body>
