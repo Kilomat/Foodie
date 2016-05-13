@@ -87,18 +87,18 @@ public class MomentumFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
-        refreshContent();
+        displayMomentums();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshContent();
+                displayMomentums();
             }
         });
 
         return view;
     }
 
-    private void refreshContent() {
+    private void displayMomentums() {
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -118,12 +118,14 @@ public class MomentumFragment extends Fragment {
                                         userObj.getString("userId"),
                                         userObj.getString("content"),
                                         userObj.getString("location"),
-                                        userObj.getString("postedAt"));
+                                        userObj.getString("postedAt"),
+                                        userObj.getBoolean("deleted"));
                                 momentumList.add(momentum);
                             }
 
-                            MomentumAdapter adapter = new MomentumAdapter(momentumList);
+                            MomentumAdapter adapter = new MomentumAdapter(getContext(), momentumList);
                             recyclerView.setAdapter(adapter);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -95,7 +95,18 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                             if (restaurantUpdate != null) {
                                 restaurant.setId(restaurantUpdate.getId());
                                 restaurant.setUserId(restaurantUpdate.getUserId());
-                                link.updateRestaurant(restaurant, jwt);
+                                link.updateRestaurant(restaurant, jwt, new ServerCallBack() {
+                                    @Override
+                                    public void onSuccess(JSONObject result) {
+                                        try {
+                                            Toast.makeText(getApplicationContext(), result.getString("ok"), Toast.LENGTH_LONG).show();
+                                            dialog.dismiss();
+                                            finish();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
                             } else {
                                 link.addRestaurant(restaurant, jwt, new ServerCallBack() {
                                     @Override

@@ -23,14 +23,23 @@ public class Momentum {
     @SerializedName("postedAt")
     private String  postedAt;
 
+    @SerializedName("deleted")
+    private boolean deleted;
+
     public Momentum() {}
 
-    public Momentum(Object id, String userId, String content, String location, String postedAt) {
+    public Momentum(Object id,
+                    String userId,
+                    String content,
+                    String location,
+                    String postedAt,
+                    boolean deleted) {
         this.id = id;
         this.userId = userId;
         this.content = content;
         this.location = location;
         this.postedAt = postedAt;
+        this.deleted = deleted;
     }
 
     public Object getId() {
@@ -73,14 +82,23 @@ public class Momentum {
         this.postedAt = postedAt;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Momentum{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", userId='" + userId + '\'' +
                 ", content='" + content + '\'' +
                 ", location='" + location + '\'' +
                 ", postedAt='" + postedAt + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }

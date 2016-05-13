@@ -1,6 +1,5 @@
 package foodie.project_training.com.foodie.api;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,35 +8,22 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.AuthFailureError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import foodie.project_training.com.foodie.MainActivity;
 import foodie.project_training.com.foodie.Meal.model.Meal;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
 import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.User.model.User;
-import foodie.project_training.com.foodie.User.model.UserSerializer;
 
 /**
  * Created by beau- on 10/04/2016.
@@ -68,7 +54,7 @@ public class FoodieLink {
         jsonObject.addProperty("email", user.getEmail());
         jsonObject.addProperty("password", user.getPassword());
 
-        CustomStringRequest userRequest = new CustomStringRequest(Request.Method.POST,
+        CustomStringRequest request = new CustomStringRequest(Request.Method.POST,
                 FoodiePath._USERS_,
                 jsonObject,
                 new Response.Listener<String>() {
@@ -88,13 +74,17 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
@@ -103,7 +93,7 @@ public class FoodieLink {
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(userRequest);
+        requestQueue.add(request);
     }
 
     public void authUser(final String email, final String password) {
@@ -142,13 +132,17 @@ public class FoodieLink {
                         public void onErrorResponse(VolleyError error) {
                             dialog.dismiss();
                             if (isNetworkAvailable()) {
-                                try {
-                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                    String errorString = errorObject.getString("error");
-                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                if (error.networkResponse == null)
+                                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                                else {
+                                    try {
+                                        String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                        JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                        String errorString = errorObject.getString("error");
+                                        Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             } else {
                                 Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
@@ -179,19 +173,23 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -213,7 +211,7 @@ public class FoodieLink {
         object.addProperty("gender", user.getGender());
         object.addProperty("phone", user.getPhone());
 
-        CustomStringRequest userRequest = new CustomStringRequest(Request.Method.PUT,
+        CustomStringRequest request = new CustomStringRequest(Request.Method.PUT,
                 FoodiePath._USERS_ + "/" + user.getId() + "/" + jwt,
                 object,
                 new Response.Listener<String>() {
@@ -232,14 +230,19 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
@@ -248,7 +251,7 @@ public class FoodieLink {
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(userRequest);
+        requestQueue.add(request);
     }
 
 
@@ -263,7 +266,7 @@ public class FoodieLink {
         jsonObject.addProperty("content", momentum.getContent());
         jsonObject.addProperty("location", momentum.getLocation());
 
-        CustomStringRequest userRequest = new CustomStringRequest(Request.Method.POST,
+        CustomStringRequest request = new CustomStringRequest(Request.Method.POST,
                 FoodiePath._MOMENT_ + jwt,
                 jsonObject,
                 new Response.Listener<String>() {
@@ -282,14 +285,19 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
@@ -299,7 +307,52 @@ public class FoodieLink {
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(userRequest);
+        requestQueue.add(request);
+    }
+
+    public void deleteMoment(Momentum momentum, String jwt, final ServerCallBack callBack) {
+
+        final JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("deleted", true);
+
+        CustomStringRequest request = new CustomStringRequest(Request.Method.DELETE,
+                FoodiePath._MOMENT_ + String.valueOf(momentum.getId()) + "/" + jwt,
+                jsonObject,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            callBack.onSuccess(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        if (isNetworkAvailable()) {
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
     }
 
     public void getMomentByUser(String _id, String jwt, final ServerCallBack callBack) {
@@ -322,18 +375,21 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -370,18 +426,21 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -389,7 +448,7 @@ public class FoodieLink {
         requestQueue.add(request);
     }
 
-    public void updateRestaurant(Restaurant restaurant, String jwt) {
+    public void updateRestaurant(Restaurant restaurant, String jwt, final ServerCallBack callBack) {
 
         final JsonObject object = new JsonObject();
         object.addProperty("name", restaurant.getName());
@@ -405,9 +464,7 @@ public class FoodieLink {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject  objectResp = new JSONObject(response);
-                            Toast.makeText(context, objectResp.getString("ok"), Toast.LENGTH_LONG).show();
-                            dialog.dismiss();
+                            callBack.onSuccess(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -417,14 +474,19 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
@@ -456,19 +518,23 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -495,19 +561,23 @@ public class FoodieLink {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
+
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -535,18 +605,21 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -581,18 +654,21 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -600,10 +676,10 @@ public class FoodieLink {
         requestQueue.add(request);
     }
 
-    public void getMealsByUser(String _id, String jwt, final ServerCallBack callBack) {
+    public void getMeals(String mealId, String jwt, final ServerCallBack callBack) {
 
         CustomStringRequest request = new CustomStringRequest(Request.Method.GET,
-                FoodiePath._MEALS_ + _id + "/" + jwt,
+                FoodiePath._MEALS_ + mealId + "/" + jwt,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -620,13 +696,17 @@ public class FoodieLink {
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
                         if (isNetworkAvailable()) {
-                            try {
-                                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                                JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
-                                String errorString = errorObject.getString("error");
-                                Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();

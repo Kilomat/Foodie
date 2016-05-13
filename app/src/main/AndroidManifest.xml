@@ -54,6 +54,14 @@
         </activity>
 
         <activity
+            android:name=".Meal.controller.AddMealActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Restaurant.controller.InfoRestaurantActivity"></meta-data>
+        </activity>
+
+        <activity
             android:name=".User.controller.EditAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

@@ -94,7 +94,7 @@ public class AccountFragment extends Fragment {
         jwt = settings.getString("JWT", "Nothing");
 
         displayUserInfo();
-        displayMyRestaurants();
+        displayRestaurants();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,14 +116,14 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        displayMyMomentums();
+        displayMomentums();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 displayUserInfo();
-                displayMyRestaurants();
-                displayMyMomentums();
+                displayRestaurants();
+                displayMomentums();
             }
         });
 
@@ -203,7 +203,7 @@ public class AccountFragment extends Fragment {
         }, 3000);
     }
 
-    private void displayMyRestaurants() {
+    private void displayRestaurants() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -259,7 +259,7 @@ public class AccountFragment extends Fragment {
 
     }
 
-    private void displayMyMomentums() {
+    private void displayMomentums() {
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -279,11 +279,12 @@ public class AccountFragment extends Fragment {
                                         userObj.getString("userId"),
                                         userObj.getString("content"),
                                         userObj.getString("location"),
-                                        userObj.getString("postedAt"));
+                                        userObj.getString("postedAt"),
+                                        userObj.getBoolean("deleted"));
                                 momentumList.add(momentum);
                             }
 
-                            MomentumAdapter adapter = new MomentumAdapter(momentumList);
+                            MomentumAdapter adapter = new MomentumAdapter(getContext(), momentumList);
                             recyclerViewMomentums.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

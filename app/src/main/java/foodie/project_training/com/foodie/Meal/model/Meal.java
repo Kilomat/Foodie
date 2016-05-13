@@ -27,15 +27,27 @@ public class Meal implements Serializable {
     @SerializedName("city")
     private String  city;
 
+    @SerializedName("active")
+    private boolean active;
+
+    @SerializedName("postedAt")
+    private String  postedAt;
+
+    @SerializedName("places")
+    private int     places;
+
     public Meal() {}
 
-    public Meal(Object id, String restaurantId, String title, String description, int price, String city) {
+    public Meal(Object id, String restaurantId, String title, String description, int price, String city, boolean active, String postedAt, int places) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.title = title;
         this.description = description;
         this.price = price;
         this.city = city;
+        this.active = active;
+        this.postedAt = postedAt;
+        this.places = places;
     }
 
     public Object getId() {
@@ -86,6 +98,30 @@ public class Meal implements Serializable {
         this.city = city;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getPostedAt() {
+        return postedAt;
+    }
+
+    public void setPostedAt(String postedAt) {
+        this.postedAt = postedAt;
+    }
+
+    public int getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
@@ -95,6 +131,9 @@ public class Meal implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", city='" + city + '\'' +
+                ", active=" + active +
+                ", postedAt='" + postedAt + '\'' +
+                ", places=" + places +
                 '}';
     }
 }
