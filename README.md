@@ -1,6 +1,6 @@
 
 sources : https://github.com/ridane/project_training_api
-<br>ce qu'il reste à faire est dans le fichier "routes"
+<br>ce qu'il reste à faire est dans le fichier "conf/routes"
 
 # API Foodie
 
