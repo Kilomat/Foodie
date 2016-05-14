@@ -475,7 +475,7 @@ Valeur  | Description               | Retour Json
 406     | Vérification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
 
 
-## Récupérer les restaurants par utilisateur
+## Information repas
 
 ***Nécessite une authentification***
 
