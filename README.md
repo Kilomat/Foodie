@@ -475,7 +475,7 @@ Valeur  | Description               | Retour Json
 406     | Vérification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
 
 
-## Information repas
+## Informations repas
 
 ***Nécessite une authentification***
 
