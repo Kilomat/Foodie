@@ -1,3 +1,7 @@
+
+sources : https://github.com/ridane/project_training_api
+ce qu'il reste à faire est dans le fichier "routes"
+
 # API Foodie
 
 Ce document sert de réference pour le fonctionnement de l'API Foodie.
