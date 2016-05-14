@@ -42,6 +42,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
 - [Gestion des repas](#gestion-des-repas)
     - [X] [Ajouter un repas](#ajouter-un-repas)
     - [X] [Informations repas](#informations-repas)
+    - [X] [Récupérer les repas par restaurant](#récupérer-les-repas-par-restaurant)
     - [X] [Modifier repas](#modifier-repas)
     - [X] [Participation à un repas](#participation-à-un-repas)
 
@@ -512,6 +513,66 @@ Valeur  | Description              | Retour Json
   }
 }
 ```
+
+
+## Récupérer les repas par restaurant
+
+***Nécessite une authentification***
+
+```
+GET /meals/restaurant/:restaurantId/:jwt
+```
+
+- Status code
+
+Valeur  | Description              | Retour Json
+------- | -----------              | -----------
+200     | Ok                       | voir ci-dessous
+400     | Erreur dans les paramètres| {"error":"Bad parameter"}
+406     | Vérification formulaire  | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+- Retour en cas de succès
+
+```
+"Meals": [
+    {
+      "id": "573747bf6d4bb81e5a98dfba",
+      "restaurantId": "5737477c6d4bb81e5a98dfb9",
+      "title": "titleMeal2",
+      "description": "description2",
+      "price": 20,
+      "city": "Lyon",
+      "participants": [],
+      "active": true,
+      "postedAt": "2016-05-14T23:43:59.472+08:00"
+    },
+    {
+      "id": "573747ca6d4bb81e5a98dfbb",
+      "restaurantId": "5737477c6d4bb81e5a98dfb9",
+      "title": "titleMeal1",
+      "description": "description1",
+      "price": 10,
+      "city": "Lyon",
+      "participants": [],
+      "active": true,
+      "postedAt": "2016-05-14T23:44:10.026+08:00"
+    },
+    {
+      "id": "573747d46d4bb81e5a98dfbc",
+      "restaurantId": "5737477c6d4bb81e5a98dfb9",
+      "title": "titleMeal3",
+      "description": "description3",
+      "price": 30,
+      "city": "Lyon",
+      "participants": [],
+      "active": true,
+      "postedAt": "2016-05-14T23:44:20.266+08:00"
+    }
+  ]
+}
+```
+
 
 ## Modifier repas
 
