@@ -24,7 +24,7 @@ if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['old
                  'notification' => $_POST['notification']
                  );
   $res = updateUser($_GET['uid'], $array);
-  echo $res;
+  var_dump($res);
 }
 
 

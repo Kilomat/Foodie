@@ -58,16 +58,22 @@ function getUser($userId)
 
 function updateUser($userId, $data)
 {
+    echo 'UserId';
+    var_dump($userId);
+    echo '<br />Token';
+    var_dump($_SESSION['token']);
     global $apiUrl;
     $post = json_encode($data);
+    var_dump($post);
     $ch = curl_init($apiUrl."users/".$userId."/".$_SESSION['token']);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($post)));
     curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     curl_close($ch);
-
+    var_dump($result);
     return json_decode($result);
 }
 
