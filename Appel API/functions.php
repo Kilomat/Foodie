@@ -5,7 +5,7 @@
  * Date: 15/05/2016
  * Time: 07:01
  */
-
+session_start();
 $apiUrl = "http://54.87.186.67:9000/";
 
 /* Pour utiliser les functions, le dernier paramètre sera toujours $data qui est un tableau comprenant les valeurs
