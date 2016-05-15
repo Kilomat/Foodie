@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
         android:paddingTop="1dp"
         android:textSize="12sp"
         android:textAppearance="?android:attr/textAppearanceMedium"

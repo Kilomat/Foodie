@@ -29,37 +29,66 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:singleLine="true"
             android:textSize="22sp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="Meal name"/>
+            android:hint="Meal name"
+            android:background="@android:color/transparent"/>
 
         <EditText
             android:id="@+id/city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:textSize="15sp"
+            android:textAlignment="center"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="City"
-            android:textColor="@android:color/darker_gray"/>
+            android:hint="City"
+            android:textColor="@android:color/darker_gray"
+            android:background="@android:color/transparent"/>
 
         <EditText
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Description"
+            android:textColor="@android:color/darker_gray"
+            android:background="@android:color/transparent"/>
+
+        <EditText
+            android:id="@+id/places"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
             android:textStyle="italic"
             android:textSize="15sp"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Description"
-            android:textColor="@android:color/darker_gray"/>
+            android:hint="Places"
+            android:textColor="@android:color/darker_gray"
+            android:background="@android:color/transparent"/>
 
         <EditText
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textStyle="bold"
+            android:textAlignment="center"
             android:textSize="25sp"
+            android:singleLine="true"
+            android:inputType="numberDecimal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:hint="0 Yuan(s)"
             android:textColor="@android:color/darker_gray"

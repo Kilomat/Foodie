@@ -13,19 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import foodie.project_training.com.foodie.Meal.controller.AddMealActivity;
+import foodie.project_training.com.foodie.Meal.controller.MealAdapter;
+import foodie.project_training.com.foodie.Meal.model.Meal;
 import foodie.project_training.com.foodie.R;
 import foodie.project_training.com.foodie.Restaurant.model.Restaurant;
 import foodie.project_training.com.foodie.api.FoodieLink;
@@ -44,6 +50,7 @@ public class InfoRestaurantActivity extends AppCompatActivity {
     @Bind(R.id.places) TextView places;
 
     @Bind(R.id.add_btn) ImageButton addMealBtn;
+    @Bind(R.id.no_meals) TextView noMeals;
     @Bind(R.id.recyclerView_meals) RecyclerView recyclerViewMeals;
     @Bind(R.id.edit_btn) FloatingActionButton editBtn;
 
@@ -51,6 +58,8 @@ public class InfoRestaurantActivity extends AppCompatActivity {
     private FoodieLink  link;
     private String uid;
     private String jwt;
+
+    private Restaurant restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +80,13 @@ public class InfoRestaurantActivity extends AppCompatActivity {
                 .progressIndeterminateStyle(true)
                 .show();
 
+        Intent intent = getIntent();
+
+        final String restoId = intent.getStringExtra("restoId");
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                Intent intent = getIntent();
-
-                final String restoId = intent.getStringExtra("restoId");
 
                 link = new FoodieLink(getApplicationContext(), dialog);
                 link.getInfoRestaurant(restoId, jwt, new ServerCallBack() {
@@ -92,11 +101,13 @@ public class InfoRestaurantActivity extends AppCompatActivity {
                             places.setText(String.valueOf(obj.getInt("places")));
 
                             if ( uid.equals(obj.getString("userId")) ) {
+                                addMealBtn.setVisibility(LinearLayout.VISIBLE);
+                                editBtn.setVisibility(LinearLayout.VISIBLE);
                                 editBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         try {
-                                            Restaurant restaurant = new Restaurant(obj.get("id"),
+                                            restaurant = new Restaurant(obj.get("id"),
                                                     obj.getString("userId"),
                                                     obj.getString("name"),
                                                     obj.getString("adress"),
@@ -117,6 +128,42 @@ public class InfoRestaurantActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
+                link.getMealsByRestaurant(restoId, jwt, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        JSONArray array = null;
+
+                        try {
+                            List<Meal>  meals = new ArrayList<>();
+                            array = result.getJSONArray("Meals");
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject object = array.getJSONObject(i);
+                                Meal meal = new Meal(
+                                        object.get("id"),
+                                        object.getString("restaurantId"),
+                                        object.getString("title"),
+                                        object.getString("description"),
+                                        object.getInt("price"),
+                                        object.getString("city"),
+                                        object.getBoolean("active"),
+                                        object.getString("postedAt"),
+                                        object.getInt("places"));
+                                meals.add(meal);
+                            }
+
+                            if (array.length() == 0) {
+                                noMeals.setVisibility(LinearLayout.VISIBLE);
+                            }
+
+                            MealAdapter adapter = new MealAdapter(getApplicationContext(), restoId, meals);
+                            recyclerViewMeals.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }, 3000);
 
@@ -124,6 +171,7 @@ public class InfoRestaurantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(InfoRestaurantActivity.this, AddMealActivity.class);
+                intent.putExtra("restoId", restoId);
                 startActivity(intent);
             }
         });

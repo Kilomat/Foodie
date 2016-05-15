@@ -24,15 +24,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="450dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_margin="15dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="15dp"
                     android:background="@android:color/white">
@@ -116,16 +115,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
                     <ImageButton
                         android:id="@+id/add_btn"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:scaleType="fitCenter"
+                        android:visibility="gone"
                         android:background="@android:color/transparent"
                         android:src="@drawable/selector_btn_add_meal"/>
 
+                    <TextView
+                        android:id="@+id/no_meals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:text="This restaurant hasn't meals yet"
+                        android:textStyle="italic"
+                        android:textSize="18sp"
+                        android:layout_margin="10dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView_meals"
                         android:layout_width="match_parent"
@@ -144,6 +153,7 @@
         android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:visibility="gone"
         android:src="@drawable/account_edit_icon"
         app:backgroundTint="@color/colorPrimary"/>
 

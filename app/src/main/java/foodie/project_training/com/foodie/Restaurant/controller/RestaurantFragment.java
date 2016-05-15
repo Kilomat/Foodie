@@ -12,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -40,7 +42,7 @@ import foodie.project_training.com.foodie.api.ServerCallBack;
 public class RestaurantFragment extends Fragment {
 
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.lvRestaurants) ListView lvRestaurants;
     @Bind(R.id.add_btn) FloatingActionButton addButton;
 
     private static final String PREFS_NAME = "PrefsFile";
@@ -64,11 +66,6 @@ public class RestaurantFragment extends Fragment {
                 .build();
 
         link = new FoodieLink(getContext(), dialog);
-
-        recyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(llm);
 
         refreshContent();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -99,7 +96,8 @@ public class RestaurantFragment extends Fragment {
                     public void onSuccess(JSONObject result) {
                         JSONArray array = null;
 
-                        try {List<Restaurant>  restaurants = new ArrayList<>();
+                        try {
+                            final List<Restaurant>  restaurants = new ArrayList<>();
                             array = result.getJSONArray("Restaurants");
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
@@ -114,8 +112,17 @@ public class RestaurantFragment extends Fragment {
                                 restaurants.add(restaurant);
                             }
 
-                            RestaurantAdapter adapter = new RestaurantAdapter(restaurants);
-                            recyclerView.setAdapter(adapter);
+                            RestaurantAdapter adapter = new RestaurantAdapter(getContext(), restaurants);
+
+                            lvRestaurants.setAdapter(adapter);
+                            lvRestaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(getContext(), InfoRestaurantActivity.class);
+                                    intent.putExtra("restoId", restaurants.get(position).getId().toString());
+                                    startActivity(intent);
+                                }
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

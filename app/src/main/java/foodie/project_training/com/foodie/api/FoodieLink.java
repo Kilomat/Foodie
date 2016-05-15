@@ -630,6 +630,7 @@ public class FoodieLink {
     public void addMeal(Meal meal, String jwt, final ServerCallBack callBack) {
 
         final JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("restaurantId", meal.getRestaurantId().toString());
         jsonObject.addProperty("title", meal.getTitle());
         jsonObject.addProperty("description", meal.getDescription());
         jsonObject.addProperty("price", meal.getPrice());
@@ -680,6 +681,48 @@ public class FoodieLink {
 
         CustomStringRequest request = new CustomStringRequest(Request.Method.GET,
                 FoodiePath._MEALS_ + mealId + "/" + jwt,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        dialog.dismiss();
+                        try {
+                            callBack.onSuccess(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        if (isNetworkAvailable()) {
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+    }
+
+    public void getMealsByRestaurant(String restaurantId, String jwt, final ServerCallBack callBack) {
+
+        CustomStringRequest request = new CustomStringRequest(Request.Method.GET,
+                FoodiePath._MEALS_ + "restaurant/" + restaurantId + "/" + jwt,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
