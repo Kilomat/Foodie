@@ -26,6 +26,7 @@ Penser à bien renvoyer le JWT (Json Web Token) fourni à la connection.
     - [x] [Inscription](#inscription)
     - [X] [Informations](#informations)
     - [X] [Mise à jour des informations](#mise-à-jour-des-informations)
+    - [X] [Gestion des amis](#gestion-des-amis)
 
 - [Fonctions restaurant](#fonctions-restaurant)
     - [X] [Créer restaurant](#créer-restaurant)
@@ -121,8 +122,6 @@ data {
 
 ## Mise à jour des informations
 
-
-
 ***Nécessite une authentification***<br>
 ***Le JWT renvoyé remplace l'ancien***
 
@@ -149,10 +148,35 @@ PUT users/__USER_ID__/__JWT__
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | "OK"
+200     | Ok                        | "User added to friends" - "User removed from friends"
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
+
+
+
+## Gestion des amis
+
+***Nécessite une authentification***
+
+```
+PUT users/__JWT__
+{
+    userId:          "userId à ajouter à la liste d'amis",
+    friend:          (true - false)
+}
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
