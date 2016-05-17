@@ -148,7 +148,7 @@ PUT users/__USER_ID__/__JWT__
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | "User added to friends" - "User removed from friends"
+200     | Ok                        | "ok"
 401     | Echec d'authentification  | {"error":"Bad credentials"}
 403     | Droits insuffisants       | {"error":"Forbidden"}
 406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
@@ -167,9 +167,14 @@ PUT users/__JWT__
 }
 ```
 
+- Status code
 
-
-
+Valeur  | Description               | Retour Json
+------- | -----------               | -----------
+200     | Ok                        | "User added to friends" - "User removed from friends"
+401     | Echec d'authentification  | {"error":"Bad credentials"}
+403     | Droits insuffisants       | {"error":"Forbidden"}
+406     | Verification formulaire   | {"champ ayant provoqué l'erreur": "erreur"}
 
 
 
