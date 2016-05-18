@@ -2,6 +2,8 @@ package foodie.project_training.com.foodie.Meal.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 
 /**
@@ -33,12 +35,12 @@ public class Meal implements Serializable {
     @SerializedName("postedAt")
     private String  postedAt;
 
-    @SerializedName("places")
-    private int     places;
+    @SerializedName("participants")
+    private JSONArray participants;
 
     public Meal() {}
 
-    public Meal(Object id, String restaurantId, String title, String description, int price, String city, boolean active, String postedAt, int places) {
+    public Meal(Object id, String restaurantId, String title, String description, int price, String city, boolean active, String postedAt, JSONArray participants) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.title = title;
@@ -47,7 +49,7 @@ public class Meal implements Serializable {
         this.city = city;
         this.active = active;
         this.postedAt = postedAt;
-        this.places = places;
+        this.participants = participants;
     }
 
     public Object getId() {
@@ -114,12 +116,12 @@ public class Meal implements Serializable {
         this.postedAt = postedAt;
     }
 
-    public int getPlaces() {
-        return places;
+    public JSONArray getParticipants() {
+        return participants;
     }
 
-    public void setPlaces(int places) {
-        this.places = places;
+    public void setParticipants(JSONArray participants) {
+        this.participants = participants;
     }
 
     @Override
@@ -133,7 +135,7 @@ public class Meal implements Serializable {
                 ", city='" + city + '\'' +
                 ", active=" + active +
                 ", postedAt='" + postedAt + '\'' +
-                ", places=" + places +
+                ", places=" + participants +
                 '}';
     }
 }

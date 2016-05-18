@@ -87,7 +87,6 @@ public class AddMealActivity extends AppCompatActivity {
                             meal.setTitle(title.getText().toString());
                             meal.setCity(city.getText().toString());
                             meal.setDescription(description.getText().toString());
-                            meal.setPlaces(Integer.valueOf(places.getText().toString()));
                             meal.setPrice(Integer.valueOf(price.getText().toString()));
 
                             link.addMeal(meal, jwt, new ServerCallBack() {

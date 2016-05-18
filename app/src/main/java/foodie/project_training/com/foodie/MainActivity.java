@@ -129,12 +129,9 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.nav_restaurant:
                 fragmentClass = RestaurantFragment.class;
                 break;
-            case R.id.nav_coupons:
+ /*           case R.id.nav_coupons:
                 fragmentClass = MomentumFragment.class;
-                break;
-            case R.id.nav_disconnect:
-                fragmentClass = MomentumFragment.class;
-                break;
+                break;*/
             default:
                 fragmentClass = MomentumFragment.class;
         }

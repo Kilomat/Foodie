@@ -27,7 +27,7 @@
                     android:id="@+id/nav_restaurant"
                     android:icon="@drawable/navigation_restaurant_icon"
                     android:title="Restaurants" />
-                <item
+<!--                <item
                     android:id="@+id/nav_dish"
                     android:icon="@drawable/navigation_dish_icon"
                     android:title="Dishes" />
@@ -38,7 +38,7 @@
                 <item
                     android:id="@+id/nav_discount"
                     android:icon="@drawable/navigation_discount_icon"
-                    android:title="Discounts" />
+                    android:title="Discounts" />-->
             </group>
         </menu>
     </item>

@@ -36,6 +36,7 @@ public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.Moment
 
     public static class MomentViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.user) TextView user;
+        @Bind(R.id.friend_btn) ImageButton friendBtn;
         @Bind(R.id.delete_btn) ImageButton deleteBtn;
         @Bind(R.id.location) TextView location;
         @Bind(R.id.datePost) TextView datePost;
@@ -53,6 +54,9 @@ public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.Moment
     private static final String PREFS_NAME = "PrefsFile";
     private String    uid;
     private String    jwt;
+
+    private FoodieLink link;
+    private MaterialDialog dialog;
 
     public MomentumAdapter(Context context, List<Momentum> momentums) {
         this.context = context;
@@ -74,22 +78,35 @@ public class MomentumAdapter extends RecyclerView.Adapter<MomentumAdapter.Moment
         jwt = settings.getString("JWT", "Nothing");
 
         holder.user.setText(momentums.get(position).getUserId());
+
+        dialog = new MaterialDialog.Builder(context)
+                .title("Please wait a moment ...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(true)
+                .build();
+        link = new FoodieLink(context, dialog);
+
+        holder.friendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        link.monitorFriends(momentums.get(position).getUserId(), true, jwt);
+                    }
+                }, 3000);
+            }
+        });
+
         if (uid.equals(momentums.get(position).getUserId()))
             holder.deleteBtn.setVisibility(LinearLayout.VISIBLE);
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MaterialDialog dialog = new MaterialDialog.Builder(context)
-                        .title("Please wait a moment ...")
-                        .progress(true, 0)
-                        .progressIndeterminateStyle(true)
-                        .show();
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        FoodieLink link = new FoodieLink(context, dialog);
                         link.deleteMoment(momentums.get(position), jwt, new ServerCallBack() {
                             @Override
                             public void onSuccess(JSONObject result) {

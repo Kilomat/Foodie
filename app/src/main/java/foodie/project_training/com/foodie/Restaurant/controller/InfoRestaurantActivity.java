@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -84,6 +85,9 @@ public class InfoRestaurantActivity extends AppCompatActivity {
 
         final String restoId = intent.getStringExtra("restoId");
 
+        LinearLayoutManager llmMeals = new LinearLayoutManager(this);
+        recyclerViewMeals.setLayoutManager(llmMeals);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -149,15 +153,22 @@ public class InfoRestaurantActivity extends AppCompatActivity {
                                         object.getString("city"),
                                         object.getBoolean("active"),
                                         object.getString("postedAt"),
-                                        object.getInt("places"));
-                                meals.add(meal);
+                                        object.getJSONArray("participants"));
+                                if (meal.isActive())
+                                    meals.add(meal);
                             }
 
-                            if (array.length() == 0) {
+                            if (meals.isEmpty()) {
                                 noMeals.setVisibility(LinearLayout.VISIBLE);
                             }
 
-                            MealAdapter adapter = new MealAdapter(getApplicationContext(), restoId, meals);
+                            MaterialDialog dialog = new MaterialDialog.Builder(InfoRestaurantActivity.this)
+                                    .title("Please wait a moment ...")
+                                    .progress(true, 0)
+                                    .progressIndeterminateStyle(true)
+                                    .build();
+
+                            MealAdapter adapter = new MealAdapter(getApplicationContext(), restoId, meals, dialog);
                             recyclerViewMeals.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
