@@ -24,6 +24,10 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/nav_user"
+                    android:icon="@drawable/navigation_friend_icon"
+                    android:title="Users" />
+                <item
                     android:id="@+id/nav_restaurant"
                     android:icon="@drawable/navigation_restaurant_icon"
                     android:title="Restaurants" />
@@ -39,17 +43,6 @@
                     android:id="@+id/nav_discount"
                     android:icon="@drawable/navigation_discount_icon"
                     android:title="Discounts" />-->
-            </group>
-        </menu>
-    </item>
-
-    <item android:title="Parameters">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_disconnect"
-                    android:icon="@drawable/navigation_disconnect_icon"
-                    android:title="Disconnect" />
             </group>
         </menu>
     </item>

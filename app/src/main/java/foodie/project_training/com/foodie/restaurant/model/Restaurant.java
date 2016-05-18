@@ -40,6 +40,8 @@ public class Restaurant implements Serializable {
     @SerializedName("places")
     private int     place;
 
+    private int     reservedPlaces;
+
     public Restaurant() {}
 
     public Restaurant(Object id, String userId, String name, String address, String city, String description, int place) {
@@ -50,6 +52,17 @@ public class Restaurant implements Serializable {
         this.city = city;
         this.description = description;
         this.place = place;
+    }
+
+    public Restaurant(Object id, String userId, String name, String address, String city, String description, int place, int reservedPlaces) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.description = description;
+        this.place = place;
+        this.reservedPlaces = reservedPlaces;
     }
 
     public Object getId() {
@@ -108,6 +121,14 @@ public class Restaurant implements Serializable {
         this.place = place;
     }
 
+    public int getReservedPlaces() {
+        return reservedPlaces;
+    }
+
+    public void setReservedPlaces(int reservedPlaces) {
+        this.reservedPlaces = reservedPlaces;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -118,6 +139,7 @@ public class Restaurant implements Serializable {
                 ", city='" + city + '\'' +
                 ", description='" + description + '\'' +
                 ", place=" + place +
+                ", reservedPlaces=" + reservedPlaces +
                 '}';
     }
 }

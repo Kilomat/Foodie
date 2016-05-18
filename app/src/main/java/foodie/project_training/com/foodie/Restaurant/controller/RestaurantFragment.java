@@ -108,7 +108,8 @@ public class RestaurantFragment extends Fragment {
                                         object.getString("adress"),
                                         object.getString("city"),
                                         object.getString("description"),
-                                        object.getInt("places"));
+                                        object.getInt("places"),
+                                        object.getInt("reservedPlaces"));
                                 restaurants.add(restaurant);
                             }
 

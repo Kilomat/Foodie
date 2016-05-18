@@ -44,6 +44,7 @@ import foodie.project_training.com.foodie.Momentum.controller.MomentumFragment;
 import foodie.project_training.com.foodie.Momentum.model.Momentum;
 import foodie.project_training.com.foodie.Restaurant.controller.RestaurantFragment;
 import foodie.project_training.com.foodie.User.controller.AccountFragment;
+import foodie.project_training.com.foodie.User.controller.UsersFragment;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -125,6 +126,9 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.nav_momentum:
                 fragmentClass = MomentumFragment.class;
+                break;
+            case R.id.nav_user:
+                fragmentClass = UsersFragment.class;
                 break;
             case R.id.nav_restaurant:
                 fragmentClass = RestaurantFragment.class;

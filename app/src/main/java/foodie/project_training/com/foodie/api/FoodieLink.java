@@ -195,8 +195,50 @@ public class FoodieLink {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(authRequest);
-
     }
+
+    public void getAllUsers(String jwt, final ServerCallBack callBack) {
+
+        CustomStringRequest authRequest = new CustomStringRequest(Request.Method.GET,
+                FoodiePath._USERS_ + "/allUsers/" + jwt,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        dialog.dismiss();
+                        try {
+                            callBack.onSuccess(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        if (isNetworkAvailable()) {
+                            if (error.networkResponse == null)
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            else {
+                                try {
+                                    String statusCode = String.valueOf(error.networkResponse.statusCode);
+                                    JSONObject errorObject = new JSONObject(new String(error.networkResponse.data));
+                                    String errorString = errorObject.getString("error");
+                                    Toast.makeText(context, "ERROR " + statusCode + " : " + errorString, Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(authRequest);
+    }
+
 
     public void updateUser(User user, String jwt) {
 
@@ -261,7 +303,7 @@ public class FoodieLink {
         object.addProperty("friend", friend);
 
         CustomStringRequest request = new CustomStringRequest(Request.Method.PUT,
-                FoodiePath._USERS_ + "/" + userId + "/" + jwt,
+                FoodiePath._USERS_ + "/" + jwt,
                 object,
                 new Response.Listener<String>() {
                     @Override
