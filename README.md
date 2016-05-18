@@ -160,7 +160,7 @@ Valeur  | Description               | Retour Json
 ***Nécessite une authentification***
 
 ```
-PUT users/__JWT__
+PUT users/friends/__JWT__
 {
     userId:          "userId à ajouter à la liste d'amis",
     friend:          (true - false)
