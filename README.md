@@ -1,12 +1,14 @@
-
-sources : https://github.com/ridane/project_training_api
-<br>ce qu'il reste à faire est dans le fichier "conf/routes"
-
 # API Foodie
 
 Ce document sert de réference pour le fonctionnement de l'API Foodie.
 
 Url de référence pour l'API : `http://54.87.186.67:9000/`
+
+
+non-blocking api developed in Scala/Play by: Mohamed-Amin Ridane &nbsp;&nbsp;&nbsp;&nbsp;id: 15129027
+<br>server: Amazon EC2 t2 micro
+<br>database: mlab.com,     ds019481.mlab.com:19481 / userName: tekUser / password: tekUser  
+ source code: https://github.com/ridane/project_training_api
 
 ## Fonctionnement
 
