@@ -1,14 +1,15 @@
 # API Foodie
 
-Ce document sert de réference pour le fonctionnement de l'API Foodie.
+non-blocking api developed in Scala/Play by: Mohamed-Amin Ridane &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: 15129027
+<br>server: Amazon EC2 t2 micro
+<br>database: mlab.com,     ds019481.mlab.com:19481 / userName: tekUser / password: tekUser  
+ source code: https://github.com/ridane/project_training_api
+ 
+ 
 
 Url de référence pour l'API : `http://54.87.186.67:9000/`
 
 
-non-blocking api developed in Scala/Play by: Mohamed-Amin Ridane &nbsp;&nbsp;&nbsp;&nbsp;id: 15129027
-<br>server: Amazon EC2 t2 micro
-<br>database: mlab.com,     ds019481.mlab.com:19481 / userName: tekUser / password: tekUser  
- source code: https://github.com/ridane/project_training_api
 
 ## Fonctionnement
 
@@ -67,9 +68,19 @@ POST users/auth
 
 Valeur  | Description               | Retour Json
 ------- | -----------               | -----------
-200     | Ok                        | {"uid":"5"}
+200     | Ok                        | voir ci-dessous
 400     | Erreur dans les paramètres| {"error":"Bad parameter"}
 401     | Echec d'authentification  | {"error":"Bad credentials"}
+
+
+
+
+```
+{
+  "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaXJ0aGRheSI6Im5vdCBkZWZpbmVkIiwiY2l0eSI6IkJlaWppbmciLCJ6aXBjb2RlIjoxMDA0NCwiZW1haWwiOiJ0YW4iLCJub3RpZmljYXRpb24iOjAsImFkcmVzcyI6IkJqdHUiLCJiaW8iOiJqYWltZSBsZXMgcGFzdMOocXVlcyIsImxhc3ROYW1lIjoiVGFuIiwiZmlyc3ROYW1lIjoiQmVhdSIsInVzZXJJZCI6IjU3M2MxYjAxNDVhMzU5NDllNGQwZjhkNyIsInBob25lIjoiMTgyIiwiZ2VuZGVyIjoiTWFsZSJ9.OO25lGMKxeng_UfOBZJIilpU3lc7XBRHAnsdaYiomq8",
+  "uid": "573c1b0145a35949e4d0f8d7"
+}
+```
 
 ## Inscription
 
